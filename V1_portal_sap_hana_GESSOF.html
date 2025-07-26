@@ -1,0 +1,1455 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Portal SAP HANA - GESSOF LTDA</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: white;
+            min-height: 100vh;
+        }
+
+        .header {
+            background: rgba(0, 0, 0, 0.9);
+            padding: 2rem 0;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .logo-container {
+            margin-bottom: 1.5rem;
+        }
+
+        .logo-link {
+            display: inline-block;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .logo-link:hover {
+            transform: scale(1.05);
+            filter: brightness(1.1);
+        }
+
+        .logo-link::after {
+            content: 'Visitar www.gessof.cl';
+            position: absolute;
+            bottom: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+            white-space: nowrap;
+        }
+
+        .logo-link:hover::after {
+            opacity: 1;
+        }
+
+        .company-logo {
+            height: 80px;
+            width: auto;
+            max-width: 300px;
+            object-fit: contain;
+            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+            transition: all 0.3s ease;
+        }
+
+        .header h1 {
+            font-size: 3.5rem;
+            font-weight: bold;
+            background: linear-gradient(45deg, #00d4ff, #0099cc, #ff6b6b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .header h2 {
+            font-size: 1.8rem;
+            color: #00d4ff;
+            margin-bottom: 1rem;
+            font-weight: 300;
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            color: #b8c6db;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .stats-bar {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .stats-bar h3 {
+            color: #00d4ff;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .stats-bar code {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 2px 6px;
+            border-radius: 4px;
+            color: #ffc107;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85em;
+        }
+
+        .search-filter {
+            margin: 2rem 0;
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .search-input {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 25px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            font-size: 16px;
+            width: 300px;
+        }
+
+        .search-input::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .videos-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 1.5rem;
+            padding: 2rem 0;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .video-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            position: relative;
+            width: 100%;
+            min-height: 320px;
+        }
+
+        .video-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0, 212, 255, 0.3);
+            border-color: #00d4ff;
+        }
+
+        .video-card.pending {
+            opacity: 0.7;
+            border-color: rgba(255, 193, 7, 0.3);
+        }
+
+        .video-card.pending:hover {
+            border-color: #ffc107;
+            box-shadow: 0 20px 40px rgba(255, 193, 7, 0.2);
+        }
+
+        .video-thumbnail {
+            position: relative;
+            width: 100%;
+            height: 140px;
+            overflow: hidden;
+        }
+
+        .video-thumbnail img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .video-card:hover .video-thumbnail img {
+            transform: scale(1.05);
+        }
+
+        .video-number {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: linear-gradient(45deg, #ff6b6b, #ff8e53);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 14px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .video-number.pending {
+            background: linear-gradient(45deg, #ffc107, #ff8f00);
+        }
+
+        .pending-overlay {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.8);
+            color: #ffc107;
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 14px;
+            border: 2px solid #ffc107;
+        }
+
+        .video-content {
+            padding: 1rem;
+        }
+
+        .video-title {
+            font-size: 1rem;
+            font-weight: bold;
+            margin-bottom: 0.8rem;
+            color: #00d4ff;
+            line-height: 1.3;
+        }
+
+        .video-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .progress-checkbox {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 12px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .progress-checkbox:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-1px);
+        }
+
+        .progress-checkbox.completed {
+            background: linear-gradient(45deg, #4ecdc4, #44a08d);
+            border-color: #4ecdc4;
+        }
+
+        .progress-checkbox input[type="checkbox"] {
+            appearance: none;
+            width: 16px;
+            height: 16px;
+            border: 2px solid white;
+            border-radius: 3px;
+            background: transparent;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .progress-checkbox input[type="checkbox"]:checked {
+            background: white;
+        }
+
+        .progress-checkbox input[type="checkbox"]:checked::after {
+            content: '✓';
+            position: absolute;
+            top: -2px;
+            left: 1px;
+            color: #4ecdc4;
+            font-weight: bold;
+            font-size: 12px;
+        }
+
+        .documentation-section {
+            margin: 3rem 0;
+            text-align: center;
+        }
+
+        .documentation-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            padding: 15px 30px;
+            background: linear-gradient(45deg, #ff6b6b, #ff8e53);
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: bold;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .documentation-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(255, 107, 107, 0.6);
+        }
+
+        .action-btn {
+            padding: 8px 12px;
+            border: none;
+            border-radius: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-watch {
+            background: linear-gradient(45deg, #ff6b6b, #ff8e53);
+            color: white;
+            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
+        }
+
+        .btn-watch:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 107, 107, 0.6);
+        }
+
+        .btn-transcript {
+            background: linear-gradient(45deg, #00d4ff, #0099cc);
+            color: white;
+            box-shadow: 0 4px 15px rgba(0, 212, 255, 0.4);
+        }
+
+        .btn-transcript:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 212, 255, 0.6);
+        }
+
+        .btn-quiz {
+            background: linear-gradient(45deg, #4ecdc4, #44a08d);
+            color: white;
+            box-shadow: 0 4px 15px rgba(78, 205, 196, 0.4);
+        }
+
+        .btn-quiz:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(78, 205, 196, 0.6);
+        }
+
+        .btn-pending {
+            background: linear-gradient(45deg, #6c757d, #495057);
+            color: white;
+            cursor: default;
+            opacity: 0.7;
+        }
+
+        .btn-pending:hover {
+            transform: none;
+            box-shadow: 0 4px 15px rgba(108, 117, 125, 0.4);
+        }
+
+        .footer {
+            background: rgba(0, 0, 0, 0.8);
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer p {
+            color: #b8c6db;
+            font-size: 1rem;
+        }
+
+        .footer a {
+            transition: all 0.3s ease;
+        }
+
+        .footer a:hover {
+            color: #ffffff !important;
+            text-shadow: 0 0 8px rgba(0, 212, 255, 0.8);
+        }
+
+        .loading {
+            text-align: center;
+            padding: 2rem;
+            color: #00d4ff;
+            font-size: 1.2rem;
+        }
+
+        .icon {
+            width: 16px;
+            height: 16px;
+            fill: currentColor;
+        }
+
+        /* Responsive Design - Mobile First */
+        
+        /* Tablets y pantallas medianas (768px - 1199px) */
+        @media (max-width: 1199px) {
+            .videos-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 1.2rem;
+            }
+            
+            .header h1 {
+                font-size: 3rem;
+            }
+        }
+
+        /* Tablets pequeñas (481px - 767px) */
+        @media (max-width: 767px) {
+            .videos-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1rem;
+                padding: 1.5rem 0;
+            }
+            
+            .header {
+                padding: 1.5rem 0;
+            }
+            
+            .company-logo {
+                height: 60px;
+            }
+            
+            .header h1 {
+                font-size: 2.5rem;
+                margin-bottom: 0.8rem;
+            }
+            
+            .header h2 {
+                font-size: 1.5rem;
+                margin-bottom: 0.8rem;
+            }
+            
+            .header p {
+                font-size: 1rem;
+                padding: 0 1rem;
+            }
+            
+            .container {
+                padding: 1rem;
+            }
+            
+            .video-card {
+                min-height: 340px;
+            }
+            
+            .video-thumbnail {
+                height: 120px;
+            }
+            
+            .video-content {
+                padding: 0.8rem;
+            }
+            
+            .video-title {
+                font-size: 0.9rem;
+                margin-bottom: 0.6rem;
+            }
+            
+            .action-btn {
+                padding: 7px 10px;
+                font-size: 11px;
+                gap: 4px;
+            }
+            
+            .progress-checkbox {
+                padding: 6px 10px;
+                font-size: 10px;
+                gap: 6px;
+            }
+            
+            .progress-checkbox input[type="checkbox"] {
+                width: 14px;
+                height: 14px;
+            }
+            
+            .documentation-btn {
+                padding: 12px 20px;
+                font-size: 14px;
+                gap: 8px;
+            }
+            
+            .search-input {
+                width: 100%;
+                max-width: 280px;
+                padding: 10px 16px;
+                font-size: 14px;
+            }
+            
+            .stats-bar {
+                margin: 1rem 0;
+                padding: 1.2rem;
+            }
+            
+            .stats-bar h3 {
+                font-size: 1.2rem;
+            }
+        }
+
+        /* Móviles (hasta 480px) */
+        @media (max-width: 480px) {
+            .videos-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+                padding: 1rem 0;
+            }
+            
+            .company-logo {
+                height: 50px;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+                line-height: 1.2;
+            }
+            
+            .header h2 {
+                font-size: 1.3rem;
+            }
+            
+            .header p {
+                font-size: 0.95rem;
+                padding: 0 0.5rem;
+                line-height: 1.5;
+            }
+            
+            .container {
+                padding: 0.5rem;
+            }
+            
+            .video-card {
+                min-height: 300px;
+                border-radius: 12px;
+            }
+            
+            .video-thumbnail {
+                height: 140px;
+            }
+            
+            .video-content {
+                padding: 0.8rem;
+            }
+            
+            .video-title {
+                font-size: 0.95rem;
+                line-height: 1.3;
+            }
+            
+            .action-btn {
+                padding: 8px 12px;
+                font-size: 11px;
+                border-radius: 15px;
+            }
+            
+            .progress-checkbox {
+                padding: 6px 10px;
+                font-size: 10px;
+                gap: 5px;
+            }
+            
+            .progress-checkbox input[type="checkbox"] {
+                width: 12px;
+                height: 12px;
+            }
+            
+            .documentation-btn {
+                padding: 12px 20px;
+                font-size: 13px;
+                gap: 8px;
+            }
+            
+            .search-input {
+                width: 100%;
+                max-width: none;
+                margin: 0 0.5rem;
+            }
+            
+            .search-filter {
+                margin: 1rem 0;
+                padding: 0 0.5rem;
+            }
+            
+            .stats-bar {
+                margin: 1rem 0.5rem;
+                padding: 1rem;
+            }
+            
+            .stats-bar h3 {
+                font-size: 1.1rem;
+                line-height: 1.3;
+            }
+            
+            .stats-bar p {
+                font-size: 0.9rem;
+            }
+            
+            .footer {
+                padding: 1.5rem 1rem;
+                margin-top: 2rem;
+            }
+            
+            .footer p {
+                font-size: 0.9rem;
+                line-height: 1.4;
+            }
+            
+            .video-number {
+                padding: 6px 12px;
+                font-size: 12px;
+                border-radius: 15px;
+            }
+            
+            .pending-overlay {
+                padding: 8px 16px;
+                font-size: 12px;
+                border-radius: 15px;
+            }
+        }
+
+        /* Móviles muy pequeños (hasta 320px) */
+        @media (max-width: 320px) {
+            .company-logo {
+                height: 40px;
+            }
+            
+            .header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .video-card {
+                min-height: 270px;
+            }
+            
+            .video-thumbnail {
+                height: 120px;
+            }
+            
+            .action-btn {
+                padding: 6px 10px;
+                font-size: 10px;
+            }
+            
+            .progress-checkbox {
+                padding: 5px 8px;
+                font-size: 9px;
+                gap: 4px;
+            }
+            
+            .progress-checkbox input[type="checkbox"] {
+                width: 10px;
+                height: 10px;
+            }
+            
+            .documentation-btn {
+                padding: 10px 16px;
+                font-size: 12px;
+                gap: 6px;
+            }
+            
+            .stats-bar h3 {
+                font-size: 1rem;
+            }
+        }
+
+        /* Touch device optimizations */
+        @media (hover: none) {
+            .video-card:hover {
+                transform: none;
+                box-shadow: 0 10px 25px rgba(0, 212, 255, 0.2);
+            }
+            
+            .action-btn:hover {
+                transform: none;
+            }
+            
+            .video-card:active {
+                transform: scale(0.98);
+            }
+            
+            .logo-link:hover {
+                transform: none;
+                filter: none;
+            }
+            
+            .logo-link::after {
+                display: none;
+            }
+            
+            .logo-link:active {
+                transform: scale(0.95);
+            }
+        }
+
+        /* Smooth scrolling para toda la página */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Mejora de legibilidad en pantallas pequeñas */
+        @media (max-width: 480px) {
+            body {
+                font-size: 14px;
+                line-height: 1.5;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo-container">
+            <a href="https://www.gessof.cl" target="_blank" class="logo-link">
+                <img src="https://gessof.cl/wp-content/uploads/2025/05/Logo-minimalista-con-simbolismo-global.png" alt="GESSOF Logo" class="company-logo">
+            </a>
+        </div>
+        <h1>PORTAL SAP HANA</h1>
+        <h2>Capacitación GESSOF LTDA</h2>
+        <p>GESSOF está capacitando a su personal para el examen SAP HANA 2025 y obtener la certificación oficial. Accede a todos los videos de capacitación, transcripciones y quizzes desde esta plataforma.</p>
+    </div>
+
+    <div class="container">
+        <div class="stats-bar">
+            <h3>🎓 38 Videos Disponibles | 62 Próximamente</h3>
+            <p>Contenido completo para preparación SAP HANA 2025 - ¡Actualizaciones constantes!</p>
+        </div>
+
+        <div class="search-filter">
+            <input type="text" class="search-input" placeholder="🔍 Buscar video por número (ej: 001, 025)..." id="searchInput">
+        </div>
+
+        <div id="videosContainer" class="videos-grid">
+            <div class="loading">Cargando videos...</div>
+        </div>
+    </div>
+
+    <div class="documentation-section">
+        <a href="https://drive.google.com/drive/folders/1Z_qdWmmiOonSw3eAyZ6v3R93OoOkRDsx?usp=sharing" target="_blank" class="documentation-btn">
+            <svg class="icon" viewBox="0 0 24 24" style="width: 20px; height: 20px;">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                <polyline points="14,2 14,8 20,8"/>
+                <line x1="16" y1="13" x2="8" y2="13"/>
+                <line x1="16" y1="17" x2="8" y2="17"/>
+                <polyline points="10,9 9,9 8,9"/>
+            </svg>
+            Documentación Adicional de Contenidos Curso
+        </a>
+    </div>
+
+    <div class="footer">
+        <p>&copy; 2025 GESSOF LTDA - Capacitación Profesional SAP HANA</p>
+        <p>Portal de acceso a contenidos educativos certificados</p>
+        <p style="margin-top: 10px;">
+            <a href="https://www.gessof.cl" target="_blank" style="color: #00d4ff; text-decoration: none; font-weight: bold;">
+                🌐 Visitar www.gessof.cl
+            </a>
+        </p>
+    </div>
+
+    <script>
+        // CONFIGURACIÓN DE URLs DIRECTAS PARA ARCHIVOS HTML
+        // 
+        // ✅ CONFIGURADO PARA REPOSITORIOS GITHUB DE GESSOF LTDA:
+        // - Transcripciones: https://github.com/GESSOF/TRANS_SAP.git
+        // - Quiz: https://github.com/GESSOF/QUIZ_SAP.git
+        //
+        // 🚨 IMPORTANTE: ACTIVAR GITHUB PAGES
+        // Para que funcionen las URLs directas, activar GitHub Pages en cada repositorio:
+        // 1. Ir a https://github.com/GESSOF/TRANS_SAP/settings/pages
+        // 2. En "Source" seleccionar "Deploy from a branch"
+        // 3. Seleccionar "main" branch y "/" (root)
+        // 4. Hacer lo mismo para https://github.com/GESSOF/QUIZ_SAP/settings/pages
+        //
+        // URLs resultantes (nombres corregidos según Excel):
+        // - https://gessof.github.io/TRANS_SAP/001_video.html (con 'v' minúscula)
+        // - https://gessof.github.io/QUIZ_SAP/001_Quiz.html (con 'Q' mayúscula)
+        //
+        // Para agregar más videos en el futuro:
+        // 1. Subir nuevos archivos HTML a los repositorios de GitHub
+        // 2. Usar: GESSOF_PORTAL.addVideo(101, "https://youtu.be/NUEVO_VIDEO")
+        // 3. El sistema detectará automáticamente los nuevos archivos
+        
+        const driveConfig = {
+            // URLs DIRECTAS DE GITHUB PAGES - GESSOF LTDA
+            transcriptBaseUrl: 'https://gessof.github.io/TRANS_SAP',
+            quizBaseUrl: 'https://gessof.github.io/QUIZ_SAP',
+            
+            // URLs de respaldo (Google Drive) - ya no necesarias
+            transcriptFolder: '1eHgoMWdVLJhZWQU8EX1NEOadR99gbFM1',
+            quizFolder: '10xqPKJ564eF9RF9QW17NIP6aXhTStb_i',
+            
+            // Función para generar URL directa a archivo HTML
+            getFileUrl: function(folderType, videoNumber) {
+                // Usar nombres exactos según el Excel actualizado
+                if (folderType === 'transcript') {
+                    // CORRECCIÓN: usar 'video' con 'v' minúscula
+                    return `${this.transcriptBaseUrl}/${videoNumber}_video.html`;
+                } else {
+                    // CORRECTO: 'Quiz' con 'Q' mayúscula
+                    return `${this.quizBaseUrl}/${videoNumber}_Quiz.html`;
+                }
+            },
+            
+            // Verificar si tenemos acceso directo configurado
+            hasDirectAccess: function() {
+                return this.transcriptBaseUrl.includes('github.io');
+            },
+            
+            // Función para verificar si un archivo existe (opcional)
+            checkFileExists: async function(url) {
+                try {
+                    const response = await fetch(url, { method: 'HEAD' });
+                    return response.ok;
+                } catch (error) {
+                    return false;
+                }
+            }
+        };
+
+        // Función para extraer ID de YouTube de diferentes formatos de URL
+        function getYouTubeVideoId(url) {
+            const regex = /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
+            const match = url.match(regex);
+            return match ? match[1] : null;
+        }
+
+        // Función para crear el HTML de una tarjeta de video
+        function createVideoCard(video) {
+            const isPending = video.youtubeLink === "Pendiente Publicación";
+            const videoId = !isPending ? getYouTubeVideoId(video.youtubeLink) : null;
+            const thumbnailUrl = videoId ? `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg` : 'https://via.placeholder.com/280x140/4a4a4a/ffffff?text=Proximamente+' + video.numero;
+            
+            // Generar URLs específicas para cada archivo
+            const transcriptUrl = driveConfig.getFileUrl('transcript', video.numero);
+            const quizUrl = driveConfig.getFileUrl('quiz', video.numero);
+            
+            const transcriptFileName = `${video.numero}_video.html`;
+            const quizFileName = `${video.numero}_Quiz.html`;
+
+            const cardClass = isPending ? "video-card pending" : "video-card";
+            const videoTitle = isPending ? `Video SAP HANA ${video.numero} - Próximamente` : `Video SAP HANA ${video.numero}`;
+            const numberClass = isPending ? "video-number pending" : "video-number";
+
+            // Verificar si el video está marcado como completado
+            const isCompleted = getVideoProgress(video.numero);
+            const checkboxClass = isCompleted ? "progress-checkbox completed" : "progress-checkbox";
+
+            return `
+                <div class="${cardClass}" data-video="${video.numero}">
+                    <div class="video-thumbnail">
+                        <img src="${thumbnailUrl}" alt="Video ${video.numero}" onerror="this.src='https://via.placeholder.com/280x140/4a4a4a/ffffff?text=Proximamente+${video.numero}'">
+                        <div class="${numberClass}">#${video.numero}</div>
+                        ${isPending ? '<div class="pending-overlay">🚀 Próximamente</div>' : ''}
+                    </div>
+                    <div class="video-content">
+                        <div class="video-title">${videoTitle}</div>
+                        <div class="video-actions">
+                            ${isPending ? 
+                                `<div class="action-btn btn-pending">
+                                    <svg class="icon" viewBox="0 0 24 24">
+                                        <circle cx="12" cy="12" r="10"/>
+                                        <polyline points="12,6 12,12 16,14"/>
+                                    </svg>
+                                    En Producción
+                                </div>` :
+                                `<a href="${video.youtubeLink}" target="_blank" class="action-btn btn-watch">
+                                    <svg class="icon" viewBox="0 0 24 24">
+                                        <path d="M8 5v14l11-7z"/>
+                                    </svg>
+                                    Ver Video
+                                </a>`
+                            }
+                            <a href="${transcriptUrl}" target="_blank" class="action-btn btn-transcript" 
+                               title="Abrir ${transcriptFileName}"
+                               onclick="return openDriveFile('${transcriptUrl}', '${transcriptFileName}')">
+                                <svg class="icon" viewBox="0 0 24 24">
+                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                                    <polyline points="14,2 14,8 20,8"/>
+                                    <line x1="16" y1="13" x2="8" y2="13"/>
+                                    <line x1="16" y1="17" x2="8" y2="17"/>
+                                    <polyline points="10,9 9,9 8,9"/>
+                                </svg>
+                                Transcripción
+                            </a>
+                            <a href="${quizUrl}" target="_blank" class="action-btn btn-quiz" 
+                               title="Abrir ${quizFileName}"
+                               onclick="return openDriveFile('${quizUrl}', '${quizFileName}')">
+                                <svg class="icon" viewBox="0 0 24 24">
+                                    <path d="M9 11H5a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h4a2 2 0 0 0 2-2v-7a2 2 0 0 0-2-2z"/>
+                                    <path d="M21 11h-4a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h4a2 2 0 0 0 2-2v-7a2 2 0 0 0-2-2z"/>
+                                    <path d="M7 3H5a2 2 0 0 0-2 2v2"/>
+                                    <path d="M21 3h-2a2 2 0 0 0-2 2v2"/>
+                                    <path d="M7 21v-2a2 2 0 0 1 2-2h2"/>
+                                    <path d="M17 21v-2a2 2 0 0 0-2-2h-2"/>
+                                </svg>
+                                Quiz
+                            </a>
+                            <label class="${checkboxClass}" onclick="toggleVideoProgress('${video.numero}')">
+                                <input type="checkbox" ${isCompleted ? 'checked' : ''} onchange="handleCheckboxChange(event, '${video.numero}')">
+                                <span>${isCompleted ? 'Completado ✓' : 'Marcar como visto'}</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Datos de videos desde el Excel - TODOS LOS 100 VIDEOS
+        const videoData = [
+            { numero: "001", youtubeLink: "https://youtu.be/ODdMWknA8Gc?si=vFhPs3KP9oj__YJv" },
+            { numero: "002", youtubeLink: "https://youtu.be/SpWZw0PWL5g?si=x4f4uaeZGFIHJFSP" },
+            { numero: "003", youtubeLink: "https://youtu.be/k-VnnhQDz90?si=GvxRuduZIDa1bmN0" },
+            { numero: "004", youtubeLink: "https://youtu.be/LXfUvisexGI?si=f2peDC0OsIMOZoNs" },
+            { numero: "005", youtubeLink: "https://youtu.be/S6q-tJNGfv8?si=8Q5v6YU4CciWz4ii" },
+            { numero: "006", youtubeLink: "https://youtu.be/8u7QajxGqAw?si=k4DN203CYlgNmHaD" },
+            { numero: "007", youtubeLink: "https://youtu.be/914T_Nc2h-M?si=jzQcTMXq1GIwCZx9" },
+            { numero: "008", youtubeLink: "https://youtu.be/9lkLGcDqk_I?si=yTj-5pmJTbtRYpn1" },
+            { numero: "009", youtubeLink: "https://youtu.be/n1Cp5XYq_AI?si=it4I0P7noJriIObN" },
+            { numero: "010", youtubeLink: "https://youtu.be/BgrfeTCM98U?si=5XOLP9y9uPzSCjaw" },
+            { numero: "011", youtubeLink: "https://youtu.be/_VezoWlCGJQ?si=5dckrk8na0H38ALp" },
+            { numero: "012", youtubeLink: "https://youtu.be/PMfeSPMnudM?si=xyOu0WsKZE4N2G-k" },
+            { numero: "013", youtubeLink: "https://youtu.be/GOjQnl7i5SA?si=H6GMdBbzoQlhQ_Ix" },
+            { numero: "014", youtubeLink: "https://youtu.be/8YkqaaAYCWA?si=uCMlref51-H1mbqm" },
+            { numero: "015", youtubeLink: "https://youtu.be/7Ba6CMS3glc?si=NIHwgdJKA-UYksOA" },
+            { numero: "016", youtubeLink: "https://youtu.be/HMR_tMgth0Y?si=2k2HdRz7MB_rLkxp" },
+            { numero: "017", youtubeLink: "https://youtu.be/ilYhVmjGas4?si=peBP3IYYbQ2bAVXn" },
+            { numero: "018", youtubeLink: "https://youtu.be/MKVZ3DfS2Yw?si=4y3x38R1RSEVErHB" },
+            { numero: "019", youtubeLink: "https://youtu.be/qyBKfHYLANg?si=M8r_1V9lD0Fjoqo-" },
+            { numero: "020", youtubeLink: "https://youtu.be/i-murAMGhWg?si=lgl8rmBFyBSfxYgv" },
+            { numero: "021", youtubeLink: "https://youtu.be/A3SG1GKA8DM?si=KYR5nN2W1wM6Uktl" },
+            { numero: "022", youtubeLink: "https://youtu.be/C1gdETLKrz8?si=GAwkix696kpNzLvl" },
+            { numero: "023", youtubeLink: "https://youtu.be/JW-3okESL3o?si=Q71OMlj8JaRU38qW" },
+            { numero: "024", youtubeLink: "https://youtu.be/xOzQ-ytbeNg?si=ePV1dgHPZnuRLzB0" },
+            { numero: "025", youtubeLink: "https://youtu.be/34FosV8uAkQ?si=XMY3VNFRA25d4lLx" },
+            { numero: "026", youtubeLink: "https://youtu.be/nt1lzM8-miU?si=9d8XfxJfGXKHrQ_D" },
+            { numero: "027", youtubeLink: "https://youtu.be/AvOQJWwWARc?si=nvJLif1lNvtv8zCG" },
+            { numero: "028", youtubeLink: "https://youtu.be/lEfHTXLBYXs?si=iirTdBc6sUV0enjL" },
+            { numero: "029", youtubeLink: "https://youtu.be/qM_DWybyTQ8?si=LKlX_LIhMa61yjdC" },
+            { numero: "030", youtubeLink: "https://youtu.be/TPE6Pu2IvwA?si=zjRVHQFijegpNNHy" },
+            { numero: "031", youtubeLink: "https://youtu.be/NInma2td5KI?si=EqHie2KpwL3B1PVE" },
+            { numero: "032", youtubeLink: "https://youtu.be/71d9DaXqJxw?si=KO6-ylkTnTmKN7E3" },
+            { numero: "033", youtubeLink: "https://youtu.be/zUTSNWLaaQY?si=OK0gzThXP7QlSAyn" },
+            { numero: "034", youtubeLink: "https://youtu.be/3d0Kbtk3SME?si=Jut1icoFaq1-NGLy" },
+            { numero: "035", youtubeLink: "https://youtu.be/NZE1lv0RWA8?si=9eLJosxcIiOyeTg1" },
+            { numero: "036", youtubeLink: "https://youtu.be/n0npDOspOIM?si=_w2_gxZk2wRhIXLa" },
+            { numero: "037", youtubeLink: "https://youtu.be/ho_AFM0kgQM?si=S4BanMz_exbUDjpH" },
+            { numero: "038", youtubeLink: "https://youtu.be/Z3YxuuIeUO0?si=PfHSDTHSGTEwH8VF" },
+            { numero: "039", youtubeLink: "Pendiente Publicación" },
+            { numero: "040", youtubeLink: "Pendiente Publicación" },
+            { numero: "041", youtubeLink: "Pendiente Publicación" },
+            { numero: "042", youtubeLink: "Pendiente Publicación" },
+            { numero: "043", youtubeLink: "Pendiente Publicación" },
+            { numero: "044", youtubeLink: "Pendiente Publicación" },
+            { numero: "045", youtubeLink: "Pendiente Publicación" },
+            { numero: "046", youtubeLink: "Pendiente Publicación" },
+            { numero: "047", youtubeLink: "Pendiente Publicación" },
+            { numero: "048", youtubeLink: "Pendiente Publicación" },
+            { numero: "049", youtubeLink: "Pendiente Publicación" },
+            { numero: "050", youtubeLink: "Pendiente Publicación" },
+            { numero: "051", youtubeLink: "Pendiente Publicación" },
+            { numero: "052", youtubeLink: "Pendiente Publicación" },
+            { numero: "053", youtubeLink: "Pendiente Publicación" },
+            { numero: "054", youtubeLink: "Pendiente Publicación" },
+            { numero: "055", youtubeLink: "Pendiente Publicación" },
+            { numero: "056", youtubeLink: "Pendiente Publicación" },
+            { numero: "057", youtubeLink: "Pendiente Publicación" },
+            { numero: "058", youtubeLink: "Pendiente Publicación" },
+            { numero: "059", youtubeLink: "Pendiente Publicación" },
+            { numero: "060", youtubeLink: "Pendiente Publicación" },
+            { numero: "061", youtubeLink: "Pendiente Publicación" },
+            { numero: "062", youtubeLink: "Pendiente Publicación" },
+            { numero: "063", youtubeLink: "Pendiente Publicación" },
+            { numero: "064", youtubeLink: "Pendiente Publicación" },
+            { numero: "065", youtubeLink: "Pendiente Publicación" },
+            { numero: "066", youtubeLink: "Pendiente Publicación" },
+            { numero: "067", youtubeLink: "Pendiente Publicación" },
+            { numero: "068", youtubeLink: "Pendiente Publicación" },
+            { numero: "069", youtubeLink: "Pendiente Publicación" },
+            { numero: "070", youtubeLink: "Pendiente Publicación" },
+            { numero: "071", youtubeLink: "Pendiente Publicación" },
+            { numero: "072", youtubeLink: "Pendiente Publicación" },
+            { numero: "073", youtubeLink: "Pendiente Publicación" },
+            { numero: "074", youtubeLink: "Pendiente Publicación" },
+            { numero: "075", youtubeLink: "Pendiente Publicación" },
+            { numero: "076", youtubeLink: "Pendiente Publicación" },
+            { numero: "077", youtubeLink: "Pendiente Publicación" },
+            { numero: "078", youtubeLink: "Pendiente Publicación" },
+            { numero: "079", youtubeLink: "Pendiente Publicación" },
+            { numero: "080", youtubeLink: "Pendiente Publicación" },
+            { numero: "081", youtubeLink: "Pendiente Publicación" },
+            { numero: "082", youtubeLink: "Pendiente Publicación" },
+            { numero: "083", youtubeLink: "Pendiente Publicación" },
+            { numero: "084", youtubeLink: "Pendiente Publicación" },
+            { numero: "085", youtubeLink: "Pendiente Publicación" },
+            { numero: "086", youtubeLink: "Pendiente Publicación" },
+            { numero: "087", youtubeLink: "Pendiente Publicación" },
+            { numero: "088", youtubeLink: "Pendiente Publicación" },
+            { numero: "089", youtubeLink: "Pendiente Publicación" },
+            { numero: "090", youtubeLink: "Pendiente Publicación" },
+            { numero: "091", youtubeLink: "Pendiente Publicación" },
+            { numero: "092", youtubeLink: "Pendiente Publicación" },
+            { numero: "093", youtubeLink: "Pendiente Publicación" },
+            { numero: "094", youtubeLink: "Pendiente Publicación" },
+            { numero: "095", youtubeLink: "Pendiente Publicación" },
+            { numero: "096", youtubeLink: "Pendiente Publicación" },
+            { numero: "097", youtubeLink: "Pendiente Publicación" },
+            { numero: "098", youtubeLink: "Pendiente Publicación" },
+            { numero: "099", youtubeLink: "Pendiente Publicación" },
+            { numero: "100", youtubeLink: "Pendiente Publicación" }
+        ];
+
+        // Funciones para manejar el progreso de videos
+        function getVideoProgress(videoNumber) {
+            try {
+                const progress = localStorage.getItem('sap_hana_progress');
+                const progressData = progress ? JSON.parse(progress) : {};
+                return progressData[videoNumber] || false;
+            } catch (error) {
+                console.log('Error al obtener progreso:', error);
+                return false;
+            }
+        }
+
+        function setVideoProgress(videoNumber, completed) {
+            try {
+                const progress = localStorage.getItem('sap_hana_progress');
+                const progressData = progress ? JSON.parse(progress) : {};
+                progressData[videoNumber] = completed;
+                localStorage.setItem('sap_hana_progress', JSON.stringify(progressData));
+                
+                // Actualizar estadísticas
+                updateProgressStats();
+                
+                // Mostrar notificación
+                const message = completed ? 
+                    `✅ Video ${videoNumber} marcado como completado` : 
+                    `⭕ Video ${videoNumber} desmarcado`;
+                showNotification(message, completed ? 'success' : 'info');
+                
+            } catch (error) {
+                console.log('Error al guardar progreso:', error);
+            }
+        }
+
+        function toggleVideoProgress(videoNumber) {
+            const currentStatus = getVideoProgress(videoNumber);
+            setVideoProgress(videoNumber, !currentStatus);
+            
+            // Re-renderizar para actualizar la interfaz
+            renderVideos();
+        }
+
+        function handleCheckboxChange(event, videoNumber) {
+            event.stopPropagation();
+            setVideoProgress(videoNumber, event.target.checked);
+            
+            // Re-renderizar para actualizar la interfaz
+            setTimeout(() => renderVideos(), 100);
+        }
+
+        function getCompletedVideosCount() {
+            try {
+                const progress = localStorage.getItem('sap_hana_progress');
+                const progressData = progress ? JSON.parse(progress) : {};
+                return Object.values(progressData).filter(completed => completed).length;
+            } catch (error) {
+                console.log('Error al contar videos completados:', error);
+                return 0;
+            }
+        }
+
+        function updateProgressStats() {
+            const completedCount = getCompletedVideosCount();
+            const availableVideos = videoData.filter(v => v.youtubeLink !== "Pendiente Publicación").length;
+            const totalVideos = videoData.length;
+            
+            // Actualizar la barra de estadísticas con progreso
+            const statsContainer = document.querySelector('.stats-bar h3');
+            if (statsContainer) {
+                const progressPercentage = availableVideos > 0 ? Math.round((completedCount / availableVideos) * 100) : 0;
+                statsContainer.innerHTML = `
+                    🎓 ${availableVideos} Videos Disponibles | ${totalVideos - availableVideos} Próximamente
+                    <br>
+                    <span style="color: #4ecdc4; font-size: 1.2rem; margin-top: 5px; display: inline-block;">
+                        📊 Progreso: ${completedCount}/${availableVideos} completados (${progressPercentage}%)
+                    </span>
+                `;
+            }
+        }
+        function renderVideos(videos = videoData) {
+            const container = document.getElementById('videosContainer');
+            if (videos.length === 0) {
+                container.innerHTML = '<div class="loading">No se encontraron videos que coincidan con tu búsqueda.</div>';
+                return;
+            }
+            
+            container.innerHTML = videos.map(video => createVideoCard(video)).join('');
+        }
+
+        // Función de búsqueda
+        function setupSearch() {
+            const searchInput = document.getElementById('searchInput');
+            searchInput.addEventListener('input', (e) => {
+                const searchTerm = e.target.value.toLowerCase().trim();
+                
+                if (searchTerm === '') {
+                    renderVideos();
+                    return;
+                }
+                
+                const filteredVideos = videoData.filter(video => 
+                    video.numero.toLowerCase().includes(searchTerm) ||
+                    video.numero.replace(/^0+/, '').includes(searchTerm)
+                );
+                
+                renderVideos(filteredVideos);
+            });
+        }
+
+        // Función para actualizar la barra de estadísticas según configuración
+        function updateStatsBar() {
+            const hasDirectAccess = driveConfig.hasDirectAccess();
+            const statsContainer = document.querySelector('.stats-bar');
+            
+            let statusHtml;
+            // Por ahora, mostrar instrucciones para activar GitHub Pages
+            statusHtml = `
+                <div style="margin-top: 15px; padding: 12px; background: rgba(255, 193, 7, 0.15); border-radius: 10px; font-size: 0.9rem; border-left: 4px solid #ffc107;">
+                    <strong>🚨 ACTIVAR GITHUB PAGES (REQUERIDO):</strong><br>
+                    <span style="font-size: 0.85em; line-height: 1.4;">
+                        1. <strong>Transcripciones:</strong> <a href="https://github.com/GESSOF/TRANS_SAP/settings/pages" target="_blank" style="color: #ffc107;">Activar aquí</a><br>
+                        2. <strong>Quiz:</strong> <a href="https://github.com/GESSOF/QUIZ_SAP/settings/pages" target="_blank" style="color: #ffc107;">Activar aquí</a><br>
+                        3. En "Source" → "Deploy from a branch" → "main" → "Save"
+                    </span>
+                </div>
+                <div style="margin-top: 10px; padding: 10px; background: rgba(0, 212, 255, 0.1); border-radius: 10px; font-size: 0.9rem;">
+                    <strong>📁 URLs cuando esté activo:</strong> 
+                    <code>gessof.github.io/TRANS_SAP/001_video.html</code> | 
+                    <code>gessof.github.io/QUIZ_SAP/001_Quiz.html</code>
+                </div>
+                <div style="margin-top: 10px; padding: 10px; background: rgba(255, 107, 107, 0.1); border-radius: 10px; font-size: 0.9rem;">
+                    <strong>⚠️ Error Actual:</strong> Error 404 - GitHub Pages no activado. Después de activar, esperar 2-5 minutos.
+                </div>
+            `;
+            
+            // Buscar el div de estadísticas y actualizar solo la parte de estado
+            const existingStatus = statsContainer.querySelector('.status-info');
+            if (existingStatus) {
+                existingStatus.innerHTML = statusHtml;
+            } else {
+                // Si no existe, agregar después del párrafo principal
+                const mainText = statsContainer.querySelector('p');
+                const statusDiv = document.createElement('div');
+                statusDiv.className = 'status-info';
+                statusDiv.innerHTML = statusHtml;
+                mainText.after(statusDiv);
+            }
+        }
+
+        // Función para manejar la apertura de archivos 
+        function openDriveFile(url, fileName) {
+            // Verificar si GitHub Pages está activado haciendo una prueba
+            checkGitHubPagesStatus(url, fileName);
+            
+            // Abrir en nueva pestaña de todas formas
+            const newWindow = window.open(url, '_blank');
+            
+            const fileType = fileName.includes('Quiz') ? 'Quiz' : 'Transcripción';
+            
+            // Mensaje informativo mientras se verifica
+            showNotification(`🔍 Intentando abrir ${fileType}: ${fileName}`, 'info');
+            
+            // Verificar si la pestaña se abrió correctamente después de un momento
+            setTimeout(() => {
+                if (newWindow && newWindow.closed) {
+                    showNotification(`⚠️ Pop-ups bloqueados. Permitir ventanas emergentes para este sitio`, 'warning');
+                }
+            }, 1000);
+            
+            return false;
+        }
+
+        // Función para verificar el estado de GitHub Pages
+        async function checkGitHubPagesStatus(url, fileName) {
+            try {
+                const response = await fetch(url, { method: 'HEAD', mode: 'no-cors' });
+                // Si llegamos aquí sin error, GitHub Pages está funcionando
+                setTimeout(() => {
+                    showNotification(`✅ GitHub Pages activo - Archivo cargado correctamente`, 'success');
+                }, 2000);
+            } catch (error) {
+                // Error 404 o similar - GitHub Pages no está activo
+                setTimeout(() => {
+                    showGitHubPagesError();
+                }, 2000);
+            }
+        }
+
+        // Función para mostrar error específico de GitHub Pages
+        function showGitHubPagesError() {
+            const errorMessage = `
+                🚨 Error 404: GitHub Pages no activado
+                
+                Pasos para solucionarlo:
+                1. Ir a Settings → Pages en GitHub
+                2. Activar "Deploy from a branch"
+                3. Seleccionar "main" branch
+                4. Esperar 2-5 minutos
+            `;
+            
+            showNotification(errorMessage, 'error');
+            
+            // Mostrar modal con instrucciones detalladas
+            showGitHubPagesModal();
+        }
+
+        // Función para mostrar modal con instrucciones
+        function showGitHubPagesModal() {
+            const modal = document.createElement('div');
+            modal.innerHTML = `
+                <div style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 10001; display: flex; align-items: center; justify-content: center;">
+                    <div style="background: white; padding: 2rem; border-radius: 15px; max-width: 500px; margin: 1rem; color: #333;">
+                        <h3 style="color: #ff6b6b; margin-bottom: 1rem;">🚨 GitHub Pages No Activado</h3>
+                        
+                        <p style="margin-bottom: 1rem;"><strong>Para que funcionen las transcripciones y quiz:</strong></p>
+                        
+                        <div style="background: #f8f9fa; padding: 1rem; border-radius: 8px; margin-bottom: 1rem;">
+                            <strong>📋 Nombres exactos de archivos:</strong><br>
+                            • Transcripciones: <code>001_video.html</code> (con 'v' minúscula)<br>
+                            • Quiz: <code>001_Quiz.html</code> (con 'Q' mayúscula)
+                        </div>
+                        
+                        <ol style="margin-bottom: 1.5rem; line-height: 1.6;">
+                            <li><strong>Transcripciones:</strong> <a href="https://github.com/GESSOF/TRANS_SAP/settings/pages" target="_blank">Activar aquí</a></li>
+                            <li><strong>Quiz:</strong> <a href="https://github.com/GESSOF/QUIZ_SAP/settings/pages" target="_blank">Activar aquí</a></li>
+                            <li>En "Source" → seleccionar <strong>"Deploy from a branch"</strong></li>
+                            <li>Branch: <strong>"main"</strong>, Folder: <strong>"/ (root)"</strong></li>
+                            <li>Click <strong>"Save"</strong></li>
+                            <li><strong>Esperar 2-5 minutos</strong> para que se active</li>
+                        </ol>
+                        
+                        <button onclick="this.parentElement.parentElement.remove()" 
+                                style="background: #00d4ff; color: white; border: none; padding: 10px 20px; border-radius: 25px; cursor: pointer; font-weight: bold;">
+                            Entendido
+                        </button>
+                    </div>
+                </div>
+            `;
+            
+            document.body.appendChild(modal);
+            
+            // Auto-remover después de 15 segundos
+            setTimeout(() => {
+                if (modal.parentNode) {
+                    modal.parentNode.removeChild(modal);
+                }
+            }, 15000);
+        }
+
+        // Función para agregar nuevos videos de forma fácil
+        function addNewVideo(numero, youtubeLink) {
+            const newVideo = {
+                numero: String(numero).padStart(3, '0'),
+                youtubeLink: youtubeLink
+            };
+            
+            // Verificar si ya existe
+            const exists = videoData.find(v => v.numero === newVideo.numero);
+            if (!exists) {
+                videoData.push(newVideo);
+                // Reordenar por número
+                videoData.sort((a, b) => a.numero.localeCompare(b.numero));
+                
+                console.log(`✅ Video ${newVideo.numero} agregado exitosamente`);
+                return true;
+            } else {
+                console.log(`⚠️ Video ${newVideo.numero} ya existe`);
+                return false;
+            }
+        }
+
+        // Función para verificar estado de archivos HTML (opcional, para desarrollo)
+        async function checkFileAvailability(videoNumber) {
+            if (!driveConfig.hasDirectAccess()) return null;
+            
+            const transcriptUrl = driveConfig.getFileUrl('transcript', videoNumber);
+            const quizUrl = driveConfig.getFileUrl('quiz', videoNumber);
+            
+            try {
+                const [transcriptExists, quizExists] = await Promise.all([
+                    driveConfig.checkFileExists(transcriptUrl),
+                    driveConfig.checkFileExists(quizUrl)
+                ]);
+                
+                return {
+                    video: videoNumber,
+                    transcript: transcriptExists,
+                    quiz: quizExists
+                };
+            } catch (error) {
+                console.log(`Error verificando archivos para video ${videoNumber}:`, error);
+                return null;
+            }
+        }
+
+        // Función para mostrar notificaciones
+        function showNotification(message, type = 'info') {
+            // Crear elemento de notificación
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            notification.textContent = message;
+            
+            // Colores según el tipo
+            let bgColor;
+            switch(type) {
+                case 'success':
+                    bgColor = 'linear-gradient(45deg, #4ecdc4, #44a08d)';
+                    break;
+                case 'warning':
+                    bgColor = 'linear-gradient(45deg, #ffc107, #ff8f00)';
+                    break;
+                case 'error':
+                    bgColor = 'linear-gradient(45deg, #ff6b6b, #ff8e53)';
+                    break;
+                default: // info
+                    bgColor = 'linear-gradient(45deg, #00d4ff, #0099cc)';
+            }
+            
+            // Estilos de la notificación
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: ${bgColor};
+                color: white;
+                padding: 12px 20px;
+                border-radius: 25px;
+                font-weight: bold;
+                z-index: 10000;
+                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+                animation: slideIn 0.3s ease-out;
+                max-width: 350px;
+                font-size: 14px;
+                line-height: 1.3;
+            `;
+            
+            // Agregar CSS de animación si no existe
+            if (!document.querySelector('#notification-styles')) {
+                const style = document.createElement('style');
+                style.id = 'notification-styles';
+                style.textContent = `
+                    @keyframes slideIn {
+                        from { transform: translateX(100%); opacity: 0; }
+                        to { transform: translateX(0); opacity: 1; }
+                    }
+                    @keyframes slideOut {
+                        from { transform: translateX(0); opacity: 1; }
+                        to { transform: translateX(100%); opacity: 0; }
+                    }
+                `;
+                document.head.appendChild(style);
+            }
+            
+            document.body.appendChild(notification);
+            
+            // Remover después de 4 segundos
+            setTimeout(() => {
+                notification.style.animation = 'slideOut 0.3s ease-in';
+                setTimeout(() => {
+                    if (notification.parentNode) {
+                        notification.parentNode.removeChild(notification);
+                    }
+                }, 300);
+            }, 4000);
+        }
+
+        // Inicializar la aplicación
+        document.addEventListener('DOMContentLoaded', () => {
+            renderVideos();
+            setupSearch();
+            updateStatsBar(); // Actualizar barra de estado según configuración
+            updateProgressStats(); // Actualizar estadísticas de progreso
+            
+            // Mostrar mensaje de configuración pendiente
+            setTimeout(() => {
+                showNotification('⚠️ Recordatorio: Activar GitHub Pages en ambos repositorios para acceso directo a archivos', 'warning');
+            }, 2000);
+            
+            // Funciones de desarrollo disponibles en consola
+            window.GESSOF_PORTAL = {
+                addVideo: addNewVideo,
+                checkFile: checkFileAvailability,
+                config: driveConfig,
+                videos: videoData,
+                renderVideos: renderVideos,
+                getProgress: getCompletedVideosCount,
+                resetProgress: () => {
+                    localStorage.removeItem('sap_hana_progress');
+                    renderVideos();
+                    updateProgressStats();
+                    showNotification('🔄 Progreso reiniciado', 'info');
+                },
+                testGitHubPages: () => {
+                    const testUrl = driveConfig.transcriptBaseUrl + '/001_video.html';
+                    checkGitHubPagesStatus(testUrl, '001_video.html');
+                }
+            };
+            
+            console.log('🚀 Portal SAP HANA cargado correctamente');
+            console.log('📚 Funciones disponibles: window.GESSOF_PORTAL');
+            console.log('⚠️ Para activar GitHub Pages:');
+            console.log('   • https://github.com/GESSOF/TRANS_SAP/settings/pages');
+            console.log('   • https://github.com/GESSOF/QUIZ_SAP/settings/pages');
+            console.log('🧪 Probar conexión: GESSOF_PORTAL.testGitHubPages()');
+            console.log('📊 Ver progreso: GESSOF_PORTAL.getProgress()');
+            console.log('🔄 Reiniciar progreso: GESSOF_PORTAL.resetProgress()');
+        });
+    </script>
+</body>
+</html>
