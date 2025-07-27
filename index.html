@@ -87,11 +87,47 @@
             line-height: 1.5;
         }
 
+        /* Enlace al índice */
+        .index-container {
+            display: flex;
+            justify-content: center;
+            margin: 2rem 0 1rem 0;
+            padding: 0 2rem;
+        }
+
+        .index-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.8rem;
+            padding: 0.8rem 1.5rem;
+            background: linear-gradient(45deg, #4ecdc4, #44a08d);
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: bold;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(78, 205, 196, 0.3);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .index-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 35px rgba(78, 205, 196, 0.5);
+            background: linear-gradient(45deg, #5fd4cb, #4fa897);
+        }
+
+        .index-icon {
+            width: 20px;
+            height: 20px;
+            fill: currentColor;
+        }
+
         /* Barra de búsqueda estilo Netflix */
         .search-container {
             display: flex;
             justify-content: center;
-            margin: 2rem 0;
+            margin: 1rem 0 2rem 0;
             padding: 0 2rem;
         }
 
@@ -570,6 +606,10 @@
             .search-container {
                 padding: 0 1rem;
             }
+
+            .index-container {
+                padding: 0 1rem;
+            }
         }
 
         @media (max-width: 480px) {
@@ -653,6 +693,16 @@
         <h1>PORTAL SAP HANA</h1>
         <h2>Capacitación Profesional</h2>
         <p>Acceso completo a 165 clases organizadas por módulos temáticos. Contenido audiovisual, transcripciones y evaluaciones para preparación del examen SAP HANA 2025.</p>
+    </div>
+
+    <!-- Enlace al índice del curso -->
+    <div class="index-container">
+        <a href="https://gessof.github.io/SAPHANA/INDICE_CURSO_SAPHANA.html" target="_blank" class="index-btn">
+            <svg class="index-icon" viewBox="0 0 24 24">
+                <path d="M3 3h18v2H3V3zm0 4h18v2H3V7zm0 4h18v2H3v-2zm0 4h18v2H3v-2zm0 4h18v2H3v-2z"/>
+            </svg>
+            📋 Ver Índice Completo del Curso
+        </a>
     </div>
 
     <!-- Barra de búsqueda -->
