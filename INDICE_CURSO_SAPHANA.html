@@ -1,0 +1,1360 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Curso SAP HANA - Modelado de Datos</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 2rem 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 3rem;
+            margin-bottom: 3rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .header .subtitle {
+            font-size: 1.2rem;
+            color: #666;
+            margin-bottom: 2rem;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .stat-card {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        .classes-container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 3rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .classes-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .classes-header h2 {
+            font-size: 2.5rem;
+            color: #2c3e50;
+            margin-bottom: 1rem;
+        }
+
+        .classes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 1rem;
+        }
+
+        .class-item {
+            background: linear-gradient(45deg, #f8f9fa, #e9ecef);
+            border: 2px solid transparent;
+            border-radius: 12px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .class-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+            border-color: #667eea;
+        }
+
+        .class-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            border-radius: 0 2px 2px 0;
+        }
+
+        .class-number {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #667eea;
+            margin-bottom: 0.5rem;
+        }
+
+        .class-name {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 0.5rem;
+            line-height: 1.4;
+        }
+
+        .class-duration {
+            display: inline-flex;
+            align-items: center;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .class-duration::before {
+            content: '⏱️';
+            margin-right: 0.5rem;
+        }
+
+        .search-box {
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 1rem 1rem 1rem 3rem;
+            border: 2px solid #e9ecef;
+            border-radius: 50px;
+            font-size: 1rem;
+            outline: none;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        .search-input:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #666;
+            font-size: 1.2rem;
+        }
+
+        .module-divider {
+            grid-column: 1 / -1;
+            text-align: center;
+            margin: 2rem 0;
+            position: relative;
+        }
+
+        .module-divider::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            z-index: 1;
+        }
+
+        .module-title {
+            background: white;
+            padding: 0.5rem 2rem;
+            border-radius: 25px;
+            font-weight: 700;
+            color: #667eea;
+            display: inline-block;
+            position: relative;
+            z-index: 2;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 1rem;
+            }
+
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .classes-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stat-card {
+                padding: 1rem;
+            }
+
+            .stat-number {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>SAP HANA</h1>
+            <p class="subtitle">Modelado de Datos - Curso Completo</p>
+            <p style="color: #666; margin-bottom: 1rem;">Profesor: Daniel Rico | Certificación: C_HAMOD_2404</p>
+            
+            <div class="stats">
+                <div class="stat-card">
+                    <div class="stat-number">165</div>
+                    <div class="stat-label">Clases Totales</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">98h 3m</div>
+                    <div class="stat-label">Duración Total</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">12</div>
+                    <div class="stat-label">Módulos</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="classes-container">
+            <div class="classes-header">
+                <h2>Listado de Clases</h2>
+                
+                <div class="search-box">
+                    <input type="text" class="search-input" placeholder="Buscar clases..." id="searchInput">
+                    <span class="search-icon">🔍</span>
+                </div>
+            </div>
+
+            <div class="classes-grid" id="classesGrid">
+                <div class="class-item">
+                    <div class="class-number">Clase 001</div>
+                    <div class="class-name">Presentación del curso</div>
+                    <div class="class-duration">45 min</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 002</div>
+                    <div class="class-name">HANA y el Big Data</div>
+                    <div class="class-duration">60 min</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 003</div>
+                    <div class="class-name">Ventajas de SAP HANA</div>
+                    <div class="class-duration">60 min</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 004</div>
+                    <div class="class-name">Escenarios de Implementacion</div>
+                    <div class="class-duration">60 min</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 005</div>
+                    <div class="class-name">Arquitectura de SAP HANA</div>
+                    <div class="class-duration">60 min</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 006</div>
+                    <div class="class-name">Almacenamiento en SAP HANA</div>
+                    <div class="class-duration">30 min</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 007</div>
+                    <div class="class-name">Seguridad y alta disponibilidad</div>
+                    <div class="class-duration">30 min</div>
+                </div>
+
+                <div class="module-divider">
+                    <div class="module-title">MÓDULO 2 - MODELADO</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 008</div>
+                    <div class="class-name">Introduccion al modelado</div>
+                    <div class="class-duration">17 min</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 009</div>
+                    <div class="class-name">Reglas de un Sistema Gestor de Bases de Datos</div>
+                    <div class="class-duration">20 min</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 010</div>
+                    <div class="class-name">Diseño de una BBDD</div>
+                    <div class="class-duration">20 min</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 011</div>
+                    <div class="class-name">Datos vs Informacion</div>
+                    <div class="class-duration">25 min</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 012</div>
+                    <div class="class-name">Modelos de datos</div>
+                    <div class="class-duration">25 min</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 013</div>
+                    <div class="class-name">Modelo Entidad Relacion (Teoría)</div>
+                    <div class="class-duration">47 min</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 014</div>
+                    <div class="class-name">Modelo Entidad-Relacion (Practica)</div>
+                    <div class="class-duration">63 min</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 015</div>
+                    <div class="class-name">Modelo Relacional (Teoría)</div>
+                    <div class="class-duration">61 min</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 016</div>
+                    <div class="class-name">Modelo Relacional (practica)</div>
+                    <div class="class-duration">54 min</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 017</div>
+                    <div class="class-name">Ejercicios completos</div>
+                    <div class="class-duration">76 min</div>
+                </div>
+
+                <div class="module-divider">
+                    <div class="module-title">MÓDULO 3 - INTERFACES Y SQL</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 018</div>
+                    <div class="class-name">Conexion al laboratorio HANA</div>
+                    <div class="class-duration">8 min</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 019</div>
+                    <div class="class-name">Interfaces</div>
+                    <div class="class-duration">7 min</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 020</div>
+                    <div class="class-name">Interfaces - SAP HANA Studio</div>
+                    <div class="class-duration">56 min</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 021</div>
+                    <div class="class-name">Interfaces - Web IDE for SAP HANA</div>
+                    <div class="class-duration">49 min</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 022</div>
+                    <div class="class-name">Interfaces - Cockpit</div>
+                    <div class="class-duration">17 min</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 023</div>
+                    <div class="class-name">HANA SQL</div>
+                    <div class="class-duration">31 min</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 024</div>
+                    <div class="class-name">Preparar bateria de pruebas</div>
+                    <div class="class-duration">23 min</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 025</div>
+                    <div class="class-name">Comando SELECT</div>
+                    <div class="class-duration">84 min</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 026</div>
+                    <div class="class-name">Comando INSERT</div>
+                    <div class="class-duration">24 min</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 027</div>
+                    <div class="class-name">Comando UPDATE</div>
+                    <div class="class-duration">16 min</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 028</div>
+                    <div class="class-name">Comando DELETE</div>
+                    <div class="class-duration">11 min</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 029</div>
+                    <div class="class-name">JOINS</div>
+                    <div class="class-duration">23 min</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 030</div>
+                    <div class="class-name">INNER JOIN</div>
+                    <div class="class-duration">29 min</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 031</div>
+                    <div class="class-name">LEFT OUTER JOIN y RIGHT OUTER JOIN</div>
+                    <div class="class-duration">25 min</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 032</div>
+                    <div class="class-name">FULL OUTER JOIN</div>
+                    <div class="class-duration">12 min</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 033</div>
+                    <div class="class-name">Resumen JOINS</div>
+                    <div class="class-duration">41 min</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 034</div>
+                    <div class="class-name">Comentarios e identificadores</div>
+                    <div class="class-duration">22 min</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 035</div>
+                    <div class="class-name">Expresiones</div>
+                    <div class="class-duration">19 min</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 036</div>
+                    <div class="class-name">Agregados</div>
+                    <div class="class-duration">22 min</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 037</div>
+                    <div class="class-name">Subconsultas</div>
+                    <div class="class-duration">28 min</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 038</div>
+                    <div class="class-name">Operadores</div>
+                    <div class="class-duration">53 min</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 039</div>
+                    <div class="class-name">Predicados</div>
+                    <div class="class-duration">15 min</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 040</div>
+                    <div class="class-name">BETWEEN, IN y EXISTS</div>
+                    <div class="class-duration">16 min</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 041</div>
+                    <div class="class-name">NULL</div>
+                    <div class="class-duration">17 min</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 042</div>
+                    <div class="class-name">LIKE y CONTAINS</div>
+                    <div class="class-duration">40 min</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 043</div>
+                    <div class="class-name">Funciones</div>
+                    <div class="class-duration">40 min</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 044</div>
+                    <div class="class-name">Ejercicio practico</div>
+                    <div class="class-duration">30 min</div>
+                </div>
+
+                <div class="module-divider">
+                    <div class="module-title">MÓDULO 4 - DDL</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 045</div>
+                    <div class="class-name">Lenguaje DDL</div>
+                    <div class="class-duration">9 min</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 046</div>
+                    <div class="class-name">CREATE TABLE</div>
+                    <div class="class-duration">33 min</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 047</div>
+                    <div class="class-name">CREATE TABLE - Tipos de datos - Fechas</div>
+                    <div class="class-duration">61 min</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 048</div>
+                    <div class="class-name">CREATE TABLE - Tipos de datos - Tipos numéricos, caracter y binarios</div>
+                    <div class="class-duration">45 min</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 049</div>
+                    <div class="class-name">CREATE TABLE - Restricciones a nivel de columna</div>
+                    <div class="class-duration">28 min</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 050</div>
+                    <div class="class-name">CREATE TABLE - Restricciones a nivel de tabla</div>
+                    <div class="class-duration">52 min</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 051</div>
+                    <div class="class-name">CREATE TABLE - Acciones referenciales</div>
+                    <div class="class-duration">39 min</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 052</div>
+                    <div class="class-name">CREATE TABLE - Ejercicio practico</div>
+                    <div class="class-duration">53 min</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 053</div>
+                    <div class="class-name">CREATE TABLE - crear una tabla a partir de otra</div>
+                    <div class="class-duration">22 min</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 054</div>
+                    <div class="class-name">CREATE INDEX</div>
+                    <div class="class-duration">45 min</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 055</div>
+                    <div class="class-name">CREATE SCHEMA</div>
+                    <div class="class-duration">10 min</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 056</div>
+                    <div class="class-name">CREATE SEQUENCE</div>
+                    <div class="class-duration">39 min</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 057</div>
+                    <div class="class-name">CREATE SYNONYM</div>
+                    <div class="class-duration">N/A</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 058</div>
+                    <div class="class-name">CREATE VIEW</div>
+                    <div class="class-duration">23 min</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 059</div>
+                    <div class="class-name">CREATE TRIGGER</div>
+                    <div class="class-duration">N/A</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 060</div>
+                    <div class="class-name">COMANDO ALTER</div>
+                    <div class="class-duration">42 min</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 061</div>
+                    <div class="class-name">COMANDO RENAME</div>
+                    <div class="class-duration">8 min</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 062</div>
+                    <div class="class-name">COMANDO DROP</div>
+                    <div class="class-duration">26 min</div>
+                </div>
+
+                <div class="module-divider">
+                    <div class="module-title">MÓDULO 5 - PROYECTOS Y HDI</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 063</div>
+                    <div class="class-name">Auditorias de modelos de información</div>
+                    <div class="class-duration">48 min</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 064</div>
+                    <div class="class-name">Proyectos y modulos</div>
+                    <div class="class-duration">26 min</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 065</div>
+                    <div class="class-name">Identificadores y Namespace</div>
+                    <div class="class-duration">35 min</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 066</div>
+                    <div class="class-name">Infraestructura HDI</div>
+                    <div class="class-duration">45 min</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 067</div>
+                    <div class="class-name">Acciones en contenedores HDI</div>
+                    <div class="class-duration">61 min</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 068</div>
+                    <div class="class-name">Proyectos y modulos</div>
+                    <div class="class-duration">29 min</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 069</div>
+                    <div class="class-name">Optimizacion de modelos</div>
+                    <div class="class-duration">63 min</div>
+                </div>
+
+                <div class="module-divider">
+                    <div class="module-title">MÓDULO 6 - SQLSCRIPT</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 070</div>
+                    <div class="class-name">Introduccion al SQLScript</div>
+                    <div class="class-duration">31 min</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 071</div>
+                    <div class="class-name">Tipos de datos y tipos tabla</div>
+                    <div class="class-duration">21 min</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 072</div>
+                    <div class="class-name">Procedimientos</div>
+                    <div class="class-duration">51 min</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 073</div>
+                    <div class="class-name">Modificaciones sobre los procedimientos</div>
+                    <div class="class-duration">22 min</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 074</div>
+                    <div class="class-name">Variables escalares</div>
+                    <div class="class-duration">56 min</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 075</div>
+                    <div class="class-name">Variables tipo tabla</div>
+                    <div class="class-duration">25 min</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 076</div>
+                    <div class="class-name">Variables tipo tabla - operaciones</div>
+                    <div class="class-duration">85 min</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 077</div>
+                    <div class="class-name">Arrays</div>
+                    <div class="class-duration">65 min</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 078</div>
+                    <div class="class-name">Cursores</div>
+                    <div class="class-duration">48 min</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 079</div>
+                    <div class="class-name">Bloques de código anonimo</div>
+                    <div class="class-duration">15 min</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 080</div>
+                    <div class="class-name">Introduccion a las sentencias de control de flujo</div>
+                    <div class="class-duration">15 min</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 081</div>
+                    <div class="class-name">Sentencia IF</div>
+                    <div class="class-duration">66 min</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 082</div>
+                    <div class="class-name">Bucle LOOP</div>
+                    <div class="class-duration">67 min</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 083</div>
+                    <div class="class-name">Bucle While</div>
+                    <div class="class-duration">52 min</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 084</div>
+                    <div class="class-name">Bucle FOR</div>
+                    <div class="class-duration">53 min</div>
+                </div>
+
+                <div class="module-divider">
+                    <div class="module-title">MÓDULO 7 - SQLSCRIPT AVANZADO</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 085</div>
+                    <div class="class-name">Herramienta Debbuger</div>
+                    <div class="class-duration">37 min</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 086</div>
+                    <div class="class-name">Excepciones</div>
+                    <div class="class-duration">64 min</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 087</div>
+                    <div class="class-name">Transacciones</div>
+                    <div class="class-duration">45 min</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 088</div>
+                    <div class="class-name">SQL Dinamico</div>
+                    <div class="class-duration">50 min</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 089</div>
+                    <div class="class-name">Parametros en los procedimientos</div>
+                    <div class="class-duration">61 min</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 090</div>
+                    <div class="class-name">Parametros entrada-salida y tipos tabla</div>
+                    <div class="class-duration">64 min</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 091</div>
+                    <div class="class-name">Parametros - Ejercicio</div>
+                    <div class="class-duration">58 min</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 092</div>
+                    <div class="class-name">Funciones</div>
+                    <div class="class-duration">49 min</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 093</div>
+                    <div class="class-name">Metadatos de procedimientos y funciones</div>
+                    <div class="class-duration">45 min</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 094</div>
+                    <div class="class-name">Ejercicio SQLScript (I)</div>
+                    <div class="class-duration">55 min</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 095</div>
+                    <div class="class-name">Ejercicio SQLScript (II)</div>
+                    <div class="class-duration">55 min</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 096</div>
+                    <div class="class-name">Ejercicio SQLScript (III)</div>
+                    <div class="class-duration">63 min</div>
+                </div>
+
+                <div class="module-divider">
+                    <div class="module-title">MÓDULO 8 - APROVISIONAMIENTO DE DATOS</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 097</div>
+                    <div class="class-name">Descripcion del aprovisionamiento de datos</div>
+                    <div class="class-duration">66 min</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 098</div>
+                    <div class="class-name">Tecnología de aprovisionamiento de datos de HANA</div>
+                    <div class="class-duration">20 min</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 099</div>
+                    <div class="class-name">Virtualizacion - Definicion del acceso a sistemas remotos</div>
+                    <div class="class-duration">39 min</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 100</div>
+                    <div class="class-name">Virtualizacion - Configuracion de fuentes remotas</div>
+                    <div class="class-duration">35 min</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 101</div>
+                    <div class="class-name">Virtualizacion - Creacion de tablas virtuales</div>
+                    <div class="class-duration">42 min</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 102</div>
+                    <div class="class-name">Virtualizacion - Acceso a tablas remotas mediante la funcion de base de datos vinculada</div>
+                    <div class="class-duration">15 min</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 103</div>
+                    <div class="class-name">Replicacion - Comprender el proceso de replicacion</div>
+                    <div class="class-duration">23 min</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 104</div>
+                    <div class="class-name">Replicacion - Replicación de datos usando SQL</div>
+                    <div class="class-duration">7 min</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 105</div>
+                    <div class="class-name">Replicacion - Replicacion de datos usando tareas de replicacion</div>
+                    <div class="class-duration">18 min</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 106</div>
+                    <div class="class-name">Replicacion - Replicacion de datos usando servicios de replicacion</div>
+                    <div class="class-duration">12 min</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 107</div>
+                    <div class="class-name">Replicacion - Implementar tablas de replicacion</div>
+                    <div class="class-duration">17 min</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 108</div>
+                    <div class="class-name">Transformación - Implementacion de la transformación de datos</div>
+                    <div class="class-duration">60 min</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 109</div>
+                    <div class="class-name">Transformación - Implementacion de nodos comunes en un diagrama de flujo</div>
+                    <div class="class-duration">37 min</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 110</div>
+                    <div class="class-name">Transformacion - Implementación de funciones avanzadas en un diagrama de flujo</div>
+                    <div class="class-duration">45 min</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 111</div>
+                    <div class="class-name">Transformación - Diagramas de flujo de operación</div>
+                    <div class="class-duration">17 min</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 112</div>
+                    <div class="class-name">Introduccion al CDS</div>
+                    <div class="class-duration">60 min</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 113</div>
+                    <div class="class-name">Conceptos basicos del lenguaje CDS</div>
+                    <div class="class-duration">48 min</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 114</div>
+                    <div class="class-name">Comentarios y entidades</div>
+                    <div class="class-duration">62 min</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 115</div>
+                    <div class="class-name">Technical configuration</div>
+                    <div class="class-duration">45 min</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 116</div>
+                    <div class="class-name">tipos de datos y Artifact extension</div>
+                    <div class="class-duration">26 min</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 117</div>
+                    <div class="class-name">Asociations</div>
+                    <div class="class-duration">23 min</div>
+                </div>
+
+                <div class="module-divider">
+                    <div class="module-title">MÓDULO 9 - SEGURIDAD Y MODELADO</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 118</div>
+                    <div class="class-name">Introduccion a la seguridad en SAP HANA</div>
+                    <div class="class-duration">27 min</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 119</div>
+                    <div class="class-name">Usuarios</div>
+                    <div class="class-duration">18 min</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 120</div>
+                    <div class="class-name">Organizaciones y espacios</div>
+                    <div class="class-duration">35 min</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 121</div>
+                    <div class="class-name">definir roles y asignar privilegios</div>
+                    <div class="class-duration">5 min</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 122</div>
+                    <div class="class-name">Tipos de privilegios</div>
+                    <div class="class-duration">16 min</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 123</div>
+                    <div class="class-name">Creacion de privilegios analiticos</div>
+                    <div class="class-duration">65 min</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 124</div>
+                    <div class="class-name">Definicion de roles</div>
+                    <div class="class-duration">30 min</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 125</div>
+                    <div class="class-name">Introduccion al modelado</div>
+                    <div class="class-duration">31 min</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 126</div>
+                    <div class="class-name">Modelado basico</div>
+                    <div class="class-duration">26 min</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 127</div>
+                    <div class="class-name">Interfaces para el modelado</div>
+                    <div class="class-duration">17 min</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 128</div>
+                    <div class="class-name">Consideraciones adicionales para el modelado</div>
+                    <div class="class-duration">18 min</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 129</div>
+                    <div class="class-name">SAP HANA Live</div>
+                    <div class="class-duration">25 min</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 130</div>
+                    <div class="class-name">Core Data Service</div>
+                    <div class="class-duration">16 min</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 131</div>
+                    <div class="class-name">Procesado de datos espaciales</div>
+                    <div class="class-duration">9 min</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 132</div>
+                    <div class="class-name">Procesado de textos</div>
+                    <div class="class-duration">20 min</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 133</div>
+                    <div class="class-name">Procesado predictivo</div>
+                    <div class="class-duration">25 min</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 134</div>
+                    <div class="class-name">Procesado de grafos</div>
+                    <div class="class-duration">15 min</div>
+                </div>
+
+                <div class="module-divider">
+                    <div class="module-title">MÓDULO 10 - VISTAS CALCULADAS</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 135</div>
+                    <div class="class-name">Vistas calculadas</div>
+                    <div class="class-duration">70 min</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 136</div>
+                    <div class="class-name">Vistas de tipo dimension</div>
+                    <div class="class-duration">35 min</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 137</div>
+                    <div class="class-name">Data Preview</div>
+                    <div class="class-duration">20 min</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 138</div>
+                    <div class="class-name">Caracteristicas de las vistas calculadas</div>
+                    <div class="class-duration">50 min</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 139</div>
+                    <div class="class-name">Tipos de nodos - Nodo Semantics</div>
+                    <div class="class-duration">17 min</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 140</div>
+                    <div class="class-name">Tipos de nodos - Nodo Proyeccion</div>
+                    <div class="class-duration">18 min</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 141</div>
+                    <div class="class-name">Tipos de nodos - Nodo Join</div>
+                    <div class="class-duration">68 min</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 142</div>
+                    <div class="class-name">Tipos de nodos - Nodo Star Join</div>
+                    <div class="class-duration">8 min</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 143</div>
+                    <div class="class-name">Tipos de nodos - Nodo Union</div>
+                    <div class="class-duration">100 min</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 144</div>
+                    <div class="class-name">Tipos de nodos - Nodo Agregación</div>
+                    <div class="class-duration">44 min</div>
+                </div>
+
+                <div class="module-divider">
+                    <div class="module-title">MÓDULO 11 - CARACTERÍSTICAS AVANZADAS</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 145</div>
+                    <div class="class-name">Columnas restringidas</div>
+                    <div class="class-duration">23 min</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 146</div>
+                    <div class="class-name">Columnas calculadas</div>
+                    <div class="class-duration">55 min</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 147</div>
+                    <div class="class-name">Filtros</div>
+                    <div class="class-duration">37 min</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 148</div>
+                    <div class="class-name">Variables</div>
+                    <div class="class-duration">35 min</div>
+                </div>
+
+                <div class="module-divider">
+                    <div class="module-title">MÓDULO 12 - PROCESAMIENTO AVANZADO</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 149</div>
+                    <div class="class-name">Introducción al procesamiento avanzado de datos</div>
+                    <div class="class-duration">38 min</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 150</div>
+                    <div class="class-name">Indices Full-Text</div>
+                    <div class="class-duration">25 min</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 151</div>
+                    <div class="class-name">Creacion de un indice Full-Text</div>
+                    <div class="class-duration">25 min</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 152</div>
+                    <div class="class-name">Sintaxis para busquedas Full-Text</div>
+                    <div class="class-duration">63 min</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 153</div>
+                    <div class="class-name">Busquedas Fuzzy</div>
+                    <div class="class-duration">27 min</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 154</div>
+                    <div class="class-name">Analisis de texto</div>
+                    <div class="class-duration">25 min</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 155</div>
+                    <div class="class-name">Analisis de texto - Configuraciones de analisis de texto</div>
+                    <div class="class-duration">25 min</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 156</div>
+                    <div class="class-name">Analisis de texto - Configuraciones personalizadas</div>
+                    <div class="class-duration">25 min</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 157</div>
+                    <div class="class-name">Analisis de texto - Diccionarios</div>
+                    <div class="class-duration">38 min</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 158</div>
+                    <div class="class-name">Mineria de texto</div>
+                    <div class="class-duration">18 min</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 159</div>
+                    <div class="class-name">Datos geoespaciales</div>
+                    <div class="class-duration">27 min</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 160</div>
+                    <div class="class-name">Datos geoespaciales - Tipos de datos</div>
+                    <div class="class-duration">55 min</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 161</div>
+                    <div class="class-name">Datos geoespaciales - Metodos espaciales</div>
+                    <div class="class-duration">23 min</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 162</div>
+                    <div class="class-name">Analisis predictivo - PAL</div>
+                    <div class="class-duration">26 min</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 163</div>
+                    <div class="class-name">Analisis predictivo - categorias y funciones PAL</div>
+                    <div class="class-duration">37 min</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 164</div>
+                    <div class="class-name">Grafos - Introduccion</div>
+                    <div class="class-duration">21 min</div>
+                </div>
+
+                <div class="class-item">
+                    <div class="class-number">Clase 165</div>
+                    <div class="class-name">Grafos - Sintaxis y visor</div>
+                    <div class="class-duration">19 min</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Funcionalidad de búsqueda
+        const searchInput = document.getElementById('searchInput');
+        const classItems = document.querySelectorAll('.class-item');
+
+        searchInput.addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase();
+            
+            classItems.forEach(item => {
+                const className = item.querySelector('.class-name').textContent.toLowerCase();
+                const classNumber = item.querySelector('.class-number').textContent.toLowerCase();
+                
+                if (className.includes(searchTerm) || classNumber.includes(searchTerm)) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        });
+
+        // Efecto de animación al cargar
+        window.addEventListener('load', function() {
+            const items = document.querySelectorAll('.class-item');
+            items.forEach((item, index) => {
+                setTimeout(() => {
+                    item.style.opacity = '1';
+                    item.style.transform = 'translateY(0)';
+                }, index * 50);
+            });
+        });
+
+        // Inicializar con opacidad 0 para animación
+        document.querySelectorAll('.class-item').forEach(item => {
+            item.style.opacity = '0';
+            item.style.transform = 'translateY(20px)';
+            item.style.transition = 'all 0.5s ease';
+        });
+    </script>
+</body>
+</html>
