@@ -123,6 +123,130 @@
             fill: currentColor;
         }
 
+        /* NUEVA SECCIÓN: Controles por Unidad */
+        .controls-section {
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(20px);
+            padding: 2rem;
+            margin: 1rem 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .controls-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .controls-title {
+            font-size: 2rem;
+            font-weight: 700;
+            background: linear-gradient(45deg, #ff6b6b, #ffc107, #4ecdc4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.5rem;
+        }
+
+        .controls-subtitle {
+            color: #b3b3b3;
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        .controls-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .control-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.8rem;
+            padding: 1rem 1.5rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 15px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .control-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .control-btn:hover::before {
+            left: 100%;
+        }
+
+        .control-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.5);
+            background: linear-gradient(135deg, #7c8ff0 0%, #8a5eb8 100%);
+        }
+
+        .control-btn:nth-child(4n+1) {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ff8e53 100%);
+            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+        }
+
+        .control-btn:nth-child(4n+1):hover {
+            background: linear-gradient(135deg, #ff7979 0%, #ffa368 100%);
+            box-shadow: 0 8px 25px rgba(255, 107, 107, 0.5);
+        }
+
+        .control-btn:nth-child(4n+2) {
+            background: linear-gradient(135deg, #4ecdc4 0%, #44a08d 100%);
+            box-shadow: 0 4px 15px rgba(78, 205, 196, 0.3);
+        }
+
+        .control-btn:nth-child(4n+2):hover {
+            background: linear-gradient(135deg, #5fd4cb 0%, #4fa897 100%);
+            box-shadow: 0 8px 25px rgba(78, 205, 196, 0.5);
+        }
+
+        .control-btn:nth-child(4n+3) {
+            background: linear-gradient(135deg, #00d4ff 0%, #0099cc 100%);
+            box-shadow: 0 4px 15px rgba(0, 212, 255, 0.3);
+        }
+
+        .control-btn:nth-child(4n+3):hover {
+            background: linear-gradient(135deg, #1ae1ff 0%, #00a8d4 100%);
+            box-shadow: 0 8px 25px rgba(0, 212, 255, 0.5);
+        }
+
+        .control-btn:nth-child(4n+4) {
+            background: linear-gradient(135deg, #ffc107 0%, #ff8f00 100%);
+            box-shadow: 0 4px 15px rgba(255, 193, 7, 0.3);
+        }
+
+        .control-btn:nth-child(4n+4):hover {
+            background: linear-gradient(135deg, #ffcd38 0%, #ffa000 100%);
+            box-shadow: 0 8px 25px rgba(255, 193, 7, 0.5);
+        }
+
+        .control-icon {
+            width: 22px;
+            height: 22px;
+            fill: currentColor;
+        }
+
         /* Barra de búsqueda estilo Netflix */
         .search-container {
             display: flex;
@@ -554,11 +678,55 @@
             font-size: 1.1rem;
             transition: all 0.3s ease;
             box-shadow: 0 10px 30px rgba(255, 107, 107, 0.3);
+            margin: 0 1rem 1rem 0;
         }
 
         .documentation-btn:hover {
             transform: translateY(-3px);
             box-shadow: 0 15px 40px rgba(255, 107, 107, 0.5);
+        }
+
+        /* NUEVO: Botón Examen Final */
+        .final-exam-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem 2rem;
+            background: linear-gradient(45deg, #8e44ad, #9b59b6);
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(142, 68, 173, 0.3);
+            margin: 0 1rem 1rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .final-exam-btn::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transform: rotate(45deg);
+            transition: all 0.6s ease;
+            opacity: 0;
+        }
+
+        .final-exam-btn:hover::before {
+            opacity: 1;
+            transform: rotate(45deg) translate(50%, 50%);
+        }
+
+        .final-exam-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(142, 68, 173, 0.5);
+            background: linear-gradient(45deg, #9c56c7, #a569db);
         }
 
         /* Footer */
@@ -590,6 +758,16 @@
                 font-size: 2.5rem;
             }
 
+            .controls-grid {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: 0.8rem;
+            }
+
+            .control-btn {
+                padding: 0.8rem 1rem;
+                font-size: 0.9rem;
+            }
+
             .video-card {
                 flex: 0 0 250px;
                 height: 380px;
@@ -610,11 +788,19 @@
             .index-container {
                 padding: 0 1rem;
             }
+
+            .controls-section {
+                padding: 1.5rem 1rem;
+            }
         }
 
         @media (max-width: 480px) {
             .header h1 {
                 font-size: 2rem;
+            }
+
+            .controls-grid {
+                grid-template-columns: 1fr;
             }
 
             .video-card {
@@ -630,6 +816,13 @@
             .action-buttons {
                 flex-direction: column;
             }
+
+            .documentation-btn,
+            .final-exam-btn {
+                display: block;
+                margin: 0.5rem auto;
+                width: 90%;
+            }
         }
 
         /* Animaciones */
@@ -644,7 +837,8 @@
             }
         }
 
-        .module-section {
+        .module-section,
+        .controls-section {
             animation: slideIn 0.6s ease-out;
         }
 
@@ -684,10 +878,7 @@
     <div class="header">
         <div class="logo-container">
             <a href="https://www.sap.com/latinamerica/index.html" target="_blank" class="logo-link">
-                 <!--<img src="https://gessof.cl/wp-content/uploads/2025/05/Logo-minimalista-con-simbolismo-global.png" alt="GESSOF Logo" class="company-logo"> -->
-				<img src="data:image/svg+xml,%3csvg%20xmlns='http://www.w3.org/2000/svg'%20width='92'%20height='45'%20viewBox='0%200%2092%2045'%3e%3clinearGradient%20id='a'%20gradientUnits='userSpaceOnUse'%20x1='45.483'%20x2='45.483'%20y2='45.001'%3e%3cstop%20offset='0'%20stop-color='%2300AEEF'/%3e%3cstop%20offset='.212'%20stop-color='%230097DC'/%3e%3cstop%20offset='.519'%20stop-color='%23007CC5'/%3e%3cstop%20offset='.792'%20stop-color='%23006CB8'/%3e%3cstop%20offset='1'%20stop-color='%230066B3'/%3e%3c/linearGradient%3e%3cpath%20fill-rule='evenodd'%20clip-rule='evenodd'%20fill='url(%23a)'%20d='M0%2045h45.974L90.966%200H0v45'/%3e%3cpath%20fill-rule='evenodd'%20clip-rule='evenodd'%20fill='%23fff'%20d='M53.984%209H45l.03%2021.13-7.823-21.137H29.45l-6.678%2017.653c-.71-4.492-5.354-6.042-9.008-7.203-2.413-.775-4.974-1.915-4.948-3.175.02-1.034%201.37-1.993%204.053-1.85%201.8.097%203.39.242%206.553%201.77l3.11-5.42C19.648%209.3%2015.66%208.373%2012.39%208.37h-.02c-3.813%200-6.988%201.235-8.956%203.27-1.372%201.42-2.112%203.226-2.142%205.223-.05%202.748.957%204.696%203.073%206.253%201.788%201.31%204.075%202.16%206.09%202.784%202.485.77%204.515%201.44%204.49%202.866-.02.52-.216%201.006-.59%201.398-.62.64-1.57.88-2.885.906-2.537.054-4.417-.345-7.413-2.116L1.27%2034.444C4.263%2036.146%207.44%2037%2011.05%2037l.812-.006c3.142-.057%205.692-.81%207.718-2.44.116-.093.22-.187.328-.282l-.34%201.752%207.58-.024%201.36-3.482c1.43.488%203.056.758%204.782.758%201.682%200%203.264-.256%204.667-.716l.948%203.44%2013.6.013.033-7.938h2.894c6.995%200%2011.13-3.56%2011.13-9.53C66.56%2011.896%2062.54%209%2053.984%209zM33.29%2027.062c-1.045%200-2.025-.182-2.868-.502l2.836-8.955h.055l2.79%208.98c-.84.3-1.797.477-2.814.477zm21.22-5.145h-1.974V14.7h1.975c2.63%200%204.73.876%204.73%203.562-.002%202.78-2.1%203.655-4.73%203.655'/%3e%3cpath%20fill='none'%20d='M0%200h92v45H0z'/%3e%3c/svg%3e" alt="SAP Logo" class="company-logo">
-
-				
+                <img src="data:image/svg+xml,%3csvg%20xmlns='http://www.w3.org/2000/svg'%20width='92'%20height='45'%20viewBox='0%200%2092%2045'%3e%3clinearGradient%20id='a'%20gradientUnits='userSpaceOnUse'%20x1='45.483'%20x2='45.483'%20y2='45.001'%3e%3cstop%20offset='0'%20stop-color='%2300AEEF'/%3e%3cstop%20offset='.212'%20stop-color='%230097DC'/%3e%3cstop%20offset='.519'%20stop-color='%23007CC5'/%3e%3cstop%20offset='.792'%20stop-color='%23006CB8'/%3e%3cstop%20offset='1'%20stop-color='%230066B3'/%3e%3c/linearGradient%3e%3cpath%20fill-rule='evenodd'%20clip-rule='evenodd'%20fill='url(%23a)'%20d='M0%2045h45.974L90.966%200H0v45'/%3e%3cpath%20fill-rule='evenodd'%20clip-rule='evenodd'%20fill='%23fff'%20d='M53.984%209H45l.03%2021.13-7.823-21.137H29.45l-6.678%2017.653c-.71-4.492-5.354-6.042-9.008-7.203-2.413-.775-4.974-1.915-4.948-3.175.02-1.034%201.37-1.993%204.053-1.85%201.8.097%203.39.242%206.553%201.77l3.11-5.42C19.648%209.3%2015.66%208.373%2012.39%208.37h-.02c-3.813%200-6.988%201.235-8.956%203.27-1.372%201.42-2.112%203.226-2.142%205.223-.05%202.748.957%204.696%203.073%206.253%201.788%201.31%204.075%202.16%206.09%202.784%202.485.77%204.515%201.44%204.49%202.866-.02.52-.216%201.006-.59%201.398-.62.64-1.57.88-2.885.906-2.537.054-4.417-.345-7.413-2.116L1.27%2034.444C4.263%2036.146%207.44%2037%2011.05%2037l.812-.006c3.142-.057%205.692-.81%207.718-2.44.116-.093.22-.187.328-.282l-.34%201.752%207.58-.024%201.36-3.482c1.43.488%203.056.758%204.782.758%201.682%200%203.264-.256%204.667-.716l.948%203.44%2013.6.013.033-7.938h2.894c6.995%200%2011.13-3.56%2011.13-9.53C66.56%2011.896%2062.54%209%2053.984%209zM33.29%2027.062c-1.045%200-2.025-.182-2.868-.502l2.836-8.955h.055l2.79%208.98c-.84.3-1.797.477-2.814.477zm21.22-5.145h-1.974V14.7h1.975c2.63%200%204.73.876%204.73%203.562-.002%202.78-2.1%203.655-4.73%203.655'/%3e%3cpath%20fill='none'%20d='M0%200h92v45H0z'/%3e%3c/svg%3e" alt="SAP Logo" class="company-logo">
             </a>
         </div>
         <h1>PORTAL SAP HANA</h1>
@@ -703,6 +894,96 @@
             </svg>
             📋 Ver Índice Completo del Curso
         </a>
+    </div>
+
+    <!-- NUEVA SECCIÓN: Controles por Unidad -->
+    <div class="controls-section">
+        <div class="controls-header">
+            <h2 class="controls-title">🎯 CONTROLES POR UNIDAD</h2>
+            <p class="controls-subtitle">Evaluaciones específicas para cada módulo del curso</p>
+        </div>
+        <div class="controls-grid">
+            <a href="https://gessof.github.io/QUIZ_SAP/CONTROL_UNIDAD_01_SAP_HANA.html" target="_blank" class="control-btn">
+                <svg class="control-icon" viewBox="0 0 24 24">
+                    <path d="M9 11H5a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h4a2 2 0 0 0 2-2v-7a2 2 0 0 0-2-2z"/>
+                    <path d="M21 11h-4a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h4a2 2 0 0 0 2-2v-7a2 2 0 0 0-2-2z"/>
+                </svg>
+                UNIDAD 1 - Introducción SAP HANA
+            </a>
+            <a href="https://gessof.github.io/QUIZ_SAP/CONTROL_UNIDAD_02_SAP_HANA.html" target="_blank" class="control-btn">
+                <svg class="control-icon" viewBox="0 0 24 24">
+                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                </svg>
+                UNIDAD 2 - Modelado de Datos
+            </a>
+            <a href="https://gessof.github.io/QUIZ_SAP/CONTROL_UNIDAD_03_SAP_HANA.html" target="_blank" class="control-btn">
+                <svg class="control-icon" viewBox="0 0 24 24">
+                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                    <path d="M9 9h6v6H9z"/>
+                </svg>
+                UNIDAD 3 - Interfaces y SQL
+            </a>
+            <a href="https://gessof.github.io/QUIZ_SAP/CONTROL_UNIDAD_04_SAP_HANA.html" target="_blank" class="control-btn">
+                <svg class="control-icon" viewBox="0 0 24 24">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                    <polyline points="14,2 14,8 20,8"/>
+                </svg>
+                UNIDAD 4 - Lenguaje DDL
+            </a>
+            <a href="https://gessof.github.io/QUIZ_SAP/CONTROL_UNIDAD_05_SAP_HANA.html" target="_blank" class="control-btn">
+                <svg class="control-icon" viewBox="0 0 24 24">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                </svg>
+                UNIDAD 5 - Proyectos y HDI
+            </a>
+            <a href="https://gessof.github.io/QUIZ_SAP/CONTROL_UNIDAD_06_SAP_HANA.html" target="_blank" class="control-btn">
+                <svg class="control-icon" viewBox="0 0 24 24">
+                    <polyline points="16 18l6-6-6-6"/>
+                    <polyline points="8 6l-6 6 6 6"/>
+                </svg>
+                UNIDAD 6 - SQLScript
+            </a>
+            <a href="https://gessof.github.io/QUIZ_SAP/CONTROL_UNIDAD_07_SAP_HANA.html" target="_blank" class="control-btn">
+                <svg class="control-icon" viewBox="0 0 24 24">
+                    <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                </svg>
+                UNIDAD 7 - SQLScript Avanzado
+            </a>
+            <a href="https://gessof.github.io/QUIZ_SAP/CONTROL_UNIDAD_08_SAP_HANA.html" target="_blank" class="control-btn">
+                <svg class="control-icon" viewBox="0 0 24 24">
+                    <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+                </svg>
+                UNIDAD 8 - Aprovisionamiento de Datos
+            </a>
+            <a href="https://gessof.github.io/QUIZ_SAP/CONTROL_UNIDAD_09_SAP_HANA.html" target="_blank" class="control-btn">
+                <svg class="control-icon" viewBox="0 0 24 24">
+                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                    <circle cx="12" cy="16" r="1"/>
+                    <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                </svg>
+                UNIDAD 9 - Seguridad y Modelado
+            </a>
+            <a href="https://gessof.github.io/QUIZ_SAP/CONTROL_UNIDAD_10_SAP_HANA.html" target="_blank" class="control-btn">
+                <svg class="control-icon" viewBox="0 0 24 24">
+                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                    <circle cx="12" cy="12" r="3"/>
+                </svg>
+                UNIDAD 10 - Vistas Calculadas
+            </a>
+            <a href="https://gessof.github.io/QUIZ_SAP/CONTROL_UNIDAD_11_SAP_HANA.html" target="_blank" class="control-btn">
+                <svg class="control-icon" viewBox="0 0 24 24">
+                    <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+                </svg>
+                UNIDAD 11 - Características Avanzadas
+            </a>
+            <a href="https://gessof.github.io/QUIZ_SAP/CONTROL_UNIDAD_12_SAP_HANA.html" target="_blank" class="control-btn">
+                <svg class="control-icon" viewBox="0 0 24 24">
+                    <polygon points="12 2 22 8.5 22 15.5 12 22 2 15.5 2 8.5 12 2"/>
+                    <path d="M12 22V12l10-5.5M12 12L2 6.5"/>
+                </svg>
+                UNIDAD 12 - Procesamiento Avanzado
+            </a>
+        </div>
     </div>
 
     <!-- Barra de búsqueda -->
@@ -747,7 +1028,7 @@
         </div>
     </div>
 
-    <!-- Documentación -->
+    <!-- Documentación y Examen Final -->
     <div class="documentation-section">
         <a href="https://drive.google.com/drive/folders/1Z_qdWmmiOonSw3eAyZ6v3R93OoOkRDsx?usp=sharing" target="_blank" class="documentation-btn">
             <svg class="icon" viewBox="0 0 24 24" style="width: 24px; height: 24px;">
@@ -758,6 +1039,13 @@
                 <polyline points="10,9 9,9 8,9"/>
             </svg>
             Documentación Adicional de Contenidos
+        </a>
+        
+        <a href="https://gessof.github.io/QUIZ_SAP/EXAMEN_SAP_HANA.html" target="_blank" class="final-exam-btn">
+            <svg class="icon" viewBox="0 0 24 24" style="width: 24px; height: 24px;">
+                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+            </svg>
+            🏆 EXAMEN FINAL SAP HANA
         </a>
     </div>
 
