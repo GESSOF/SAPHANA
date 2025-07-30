@@ -123,7 +123,7 @@
             fill: currentColor;
         }
 
-        /* NUEVA SECCIÓN: Controles por Unidad */
+        /* SECCIÓN MEJORADA: Controles por Unidad organizados por Fases */
         .controls-section {
             background: rgba(0, 0, 0, 0.6);
             backdrop-filter: blur(20px);
@@ -135,7 +135,7 @@
 
         .controls-header {
             text-align: center;
-            margin-bottom: 2rem;
+            margin-bottom: 3rem;
         }
 
         .controls-title {
@@ -151,6 +151,44 @@
             color: #b3b3b3;
             font-size: 1rem;
             opacity: 0.9;
+        }
+
+        /* Fases organizadas */
+        .phase-container {
+            margin-bottom: 3rem;
+        }
+
+        .phase-header {
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .phase-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.8rem;
+        }
+
+        .phase-1 .phase-title {
+            color: #ff6b6b;
+        }
+
+        .phase-2 .phase-title {
+            color: #4ecdc4;
+        }
+
+        .phase-3 .phase-title {
+            color: #00d4ff;
+        }
+
+        .phase-deadline {
+            color: #b3b3b3;
+            font-size: 0.9rem;
+            opacity: 0.8;
         }
 
         .controls-grid {
@@ -201,44 +239,127 @@
             background: linear-gradient(135deg, #7c8ff0 0%, #8a5eb8 100%);
         }
 
-        .control-btn:nth-child(4n+1) {
+        /* Colores específicos para fase 1 */
+        .phase-1 .control-btn:nth-child(4n+1) {
             background: linear-gradient(135deg, #ff6b6b 0%, #ff8e53 100%);
             box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
         }
 
-        .control-btn:nth-child(4n+1):hover {
+        .phase-1 .control-btn:nth-child(4n+1):hover {
             background: linear-gradient(135deg, #ff7979 0%, #ffa368 100%);
             box-shadow: 0 8px 25px rgba(255, 107, 107, 0.5);
         }
 
-        .control-btn:nth-child(4n+2) {
-            background: linear-gradient(135deg, #4ecdc4 0%, #44a08d 100%);
-            box-shadow: 0 4px 15px rgba(78, 205, 196, 0.3);
-        }
-
-        .control-btn:nth-child(4n+2):hover {
-            background: linear-gradient(135deg, #5fd4cb 0%, #4fa897 100%);
-            box-shadow: 0 8px 25px rgba(78, 205, 196, 0.5);
-        }
-
-        .control-btn:nth-child(4n+3) {
-            background: linear-gradient(135deg, #00d4ff 0%, #0099cc 100%);
-            box-shadow: 0 4px 15px rgba(0, 212, 255, 0.3);
-        }
-
-        .control-btn:nth-child(4n+3):hover {
-            background: linear-gradient(135deg, #1ae1ff 0%, #00a8d4 100%);
-            box-shadow: 0 8px 25px rgba(0, 212, 255, 0.5);
-        }
-
-        .control-btn:nth-child(4n+4) {
+        .phase-1 .control-btn:nth-child(4n+2) {
             background: linear-gradient(135deg, #ffc107 0%, #ff8f00 100%);
             box-shadow: 0 4px 15px rgba(255, 193, 7, 0.3);
         }
 
-        .control-btn:nth-child(4n+4):hover {
+        .phase-1 .control-btn:nth-child(4n+2):hover {
             background: linear-gradient(135deg, #ffcd38 0%, #ffa000 100%);
             box-shadow: 0 8px 25px rgba(255, 193, 7, 0.5);
+        }
+
+        .phase-1 .control-btn:nth-child(4n+3) {
+            background: linear-gradient(135deg, #ff9800 0%, #f57c00 100%);
+            box-shadow: 0 4px 15px rgba(255, 152, 0, 0.3);
+        }
+
+        .phase-1 .control-btn:nth-child(4n+3):hover {
+            background: linear-gradient(135deg, #ffb74d 0%, #ff8f00 100%);
+            box-shadow: 0 8px 25px rgba(255, 152, 0, 0.5);
+        }
+
+        .phase-1 .control-btn:nth-child(4n+4) {
+            background: linear-gradient(135deg, #e91e63 0%, #ad1457 100%);
+            box-shadow: 0 4px 15px rgba(233, 30, 99, 0.3);
+        }
+
+        .phase-1 .control-btn:nth-child(4n+4):hover {
+            background: linear-gradient(135deg, #f06292 0%, #c2185b 100%);
+            box-shadow: 0 8px 25px rgba(233, 30, 99, 0.5);
+        }
+
+        /* Colores específicos para fase 2 */
+        .phase-2 .control-btn:nth-child(4n+1) {
+            background: linear-gradient(135deg, #4ecdc4 0%, #44a08d 100%);
+            box-shadow: 0 4px 15px rgba(78, 205, 196, 0.3);
+        }
+
+        .phase-2 .control-btn:nth-child(4n+1):hover {
+            background: linear-gradient(135deg, #5fd4cb 0%, #4fa897 100%);
+            box-shadow: 0 8px 25px rgba(78, 205, 196, 0.5);
+        }
+
+        .phase-2 .control-btn:nth-child(4n+2) {
+            background: linear-gradient(135deg, #26a69a 0%, #00695c 100%);
+            box-shadow: 0 4px 15px rgba(38, 166, 154, 0.3);
+        }
+
+        .phase-2 .control-btn:nth-child(4n+2):hover {
+            background: linear-gradient(135deg, #4db6ac 0%, #00796b 100%);
+            box-shadow: 0 8px 25px rgba(38, 166, 154, 0.5);
+        }
+
+        .phase-2 .control-btn:nth-child(4n+3) {
+            background: linear-gradient(135deg, #009688 0%, #004d40 100%);
+            box-shadow: 0 4px 15px rgba(0, 150, 136, 0.3);
+        }
+
+        .phase-2 .control-btn:nth-child(4n+3):hover {
+            background: linear-gradient(135deg, #26a69a 0%, #00695c 100%);
+            box-shadow: 0 8px 25px rgba(0, 150, 136, 0.5);
+        }
+
+        .phase-2 .control-btn:nth-child(4n+4) {
+            background: linear-gradient(135deg, #00bcd4 0%, #006064 100%);
+            box-shadow: 0 4px 15px rgba(0, 188, 212, 0.3);
+        }
+
+        .phase-2 .control-btn:nth-child(4n+4):hover {
+            background: linear-gradient(135deg, #26c6da 0%, #00838f 100%);
+            box-shadow: 0 8px 25px rgba(0, 188, 212, 0.5);
+        }
+
+        /* Colores específicos para fase 3 */
+        .phase-3 .control-btn:nth-child(4n+1) {
+            background: linear-gradient(135deg, #00d4ff 0%, #0099cc 100%);
+            box-shadow: 0 4px 15px rgba(0, 212, 255, 0.3);
+        }
+
+        .phase-3 .control-btn:nth-child(4n+1):hover {
+            background: linear-gradient(135deg, #1ae1ff 0%, #00a8d4 100%);
+            box-shadow: 0 8px 25px rgba(0, 212, 255, 0.5);
+        }
+
+        .phase-3 .control-btn:nth-child(4n+2) {
+            background: linear-gradient(135deg, #2196f3 0%, #0d47a1 100%);
+            box-shadow: 0 4px 15px rgba(33, 150, 243, 0.3);
+        }
+
+        .phase-3 .control-btn:nth-child(4n+2):hover {
+            background: linear-gradient(135deg, #42a5f5 0%, #1565c0 100%);
+            box-shadow: 0 8px 25px rgba(33, 150, 243, 0.5);
+        }
+
+        .phase-3 .control-btn:nth-child(4n+3) {
+            background: linear-gradient(135deg, #3f51b5 0%, #1a237e 100%);
+            box-shadow: 0 4px 15px rgba(63, 81, 181, 0.3);
+        }
+
+        .phase-3 .control-btn:nth-child(4n+3):hover {
+            background: linear-gradient(135deg, #5c6bc0 0%, #283593 100%);
+            box-shadow: 0 8px 25px rgba(63, 81, 181, 0.5);
+        }
+
+        .phase-3 .control-btn:nth-child(4n+4) {
+            background: linear-gradient(135deg, #673ab7 0%, #311b92 100%);
+            box-shadow: 0 4px 15px rgba(103, 58, 183, 0.3);
+        }
+
+        .phase-3 .control-btn:nth-child(4n+4):hover {
+            background: linear-gradient(135deg, #9575cd 0%, #4527a0 100%);
+            box-shadow: 0 8px 25px rgba(103, 58, 183, 0.5);
         }
 
         .control-icon {
@@ -335,9 +456,117 @@
             letter-spacing: 1px;
         }
 
-        /* Contenedor principal */
-        .main-container {
-            padding: 3rem 0;
+        /* NUEVO: SISTEMA DE PESTAÑAS/SLIDES */
+        .tabs-container {
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(20px);
+            padding: 2rem 0 0 0;
+            margin: 2rem 0 0 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .tabs-header {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 2rem;
+            padding: 0 2rem;
+            gap: 1rem;
+            overflow-x: auto;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        .tabs-header::-webkit-scrollbar {
+            display: none;
+        }
+
+        .tab-button {
+            flex: 0 0 auto;
+            padding: 1rem 2rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 25px;
+            color: rgba(255, 255, 255, 0.7);
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            min-width: 200px;
+            justify-content: center;
+            white-space: nowrap;
+        }
+
+        .tab-button.active {
+            background: linear-gradient(45deg, #ff6b6b, #00d4ff);
+            border-color: rgba(255, 255, 255, 0.5);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(255, 107, 107, 0.3);
+        }
+
+        .tab-button:hover:not(.active) {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.4);
+            color: rgba(255, 255, 255, 0.9);
+            transform: translateY(-1px);
+        }
+
+        .tab-button.phase-1.active {
+            background: linear-gradient(45deg, #ff6b6b, #ff8e53);
+            box-shadow: 0 8px 25px rgba(255, 107, 107, 0.4);
+        }
+
+        .tab-button.phase-2.active {
+            background: linear-gradient(45deg, #4ecdc4, #44a08d);
+            box-shadow: 0 8px 25px rgba(78, 205, 196, 0.4);
+        }
+
+        .tab-button.phase-3.active {
+            background: linear-gradient(45deg, #00d4ff, #0099cc);
+            box-shadow: 0 8px 25px rgba(0, 212, 255, 0.4);
+        }
+
+        .tab-button.phase-4.active {
+            background: linear-gradient(45deg, #8e44ad, #9b59b6);
+            box-shadow: 0 8px 25px rgba(142, 68, 173, 0.4);
+        }
+
+        .tab-icon {
+            width: 20px;
+            height: 20px;
+            fill: currentColor;
+        }
+
+        .tabs-content {
+            min-height: 600px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tab-panel {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            opacity: 0;
+            transform: translateX(100px);
+            transition: all 0.4s ease;
+            pointer-events: none;
+        }
+
+        .tab-panel.active {
+            opacity: 1;
+            transform: translateX(0);
+            pointer-events: all;
+            position: relative;
+        }
+
+        /* Contenedor principal para videos */
+        .main-videos-container {
+            padding: 0 0 3rem 0;
             background: #141414;
         }
 
@@ -349,8 +578,14 @@
 
         .module-header {
             display: flex;
-            align-items: center;
+            flex-direction: column;
             margin-bottom: 2rem;
+            gap: 1rem;
+        }
+
+        .module-title-row {
+            display: flex;
+            align-items: center;
             gap: 1rem;
         }
 
@@ -368,6 +603,72 @@
             border-radius: 20px;
             font-size: 0.9rem;
             font-weight: 600;
+        }
+
+        /* Contador de tiempo descendente */
+        .countdown-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            max-width: fit-content;
+            margin: 0 auto;
+        }
+
+        .countdown-info {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .countdown-phase {
+            font-size: 0.8rem;
+            font-weight: 600;
+            opacity: 0.8;
+        }
+
+        .countdown-deadline {
+            font-size: 0.75rem;
+            opacity: 0.7;
+        }
+
+        .countdown-timer {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #ffc107;
+        }
+
+        .countdown-days {
+            background: linear-gradient(45deg, #ff6b6b, #ffc107);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 900;
+            font-size: 1.1rem;
+        }
+
+        /* Colores específicos para fases en countdown */
+        .phase-1-countdown .countdown-phase,
+        .phase-1-countdown .countdown-timer {
+            color: #ff6b6b;
+        }
+
+        .phase-2-countdown .countdown-phase,
+        .phase-2-countdown .countdown-timer {
+            color: #4ecdc4;
+        }
+
+        .phase-3-countdown .countdown-phase,
+        .phase-3-countdown .countdown-timer {
+            color: #00d4ff;
         }
 
         /* Scroll horizontal de videos estilo Netflix */
@@ -424,16 +725,17 @@
             right: 10px;
         }
 
-        /* Tarjetas de video estilo Netflix */
+        /* TARJETAS DE VIDEO MEJORADAS PARA MÓVILES */
         .video-card {
-            flex: 0 0 280px;
+            flex: 0 0 300px;
             background: #222;
             border-radius: 8px;
             overflow: hidden;
             transition: all 0.3s ease;
             cursor: pointer;
             position: relative;
-            height: 420px;
+            height: 480px;
+            min-height: 480px;
         }
 
         .video-card:hover {
@@ -523,18 +825,23 @@
 
         .video-content {
             padding: 1.5rem;
-            height: 220px;
+            height: 280px;
             display: flex;
             flex-direction: column;
+            justify-content: space-between;
         }
 
         .video-title {
             font-size: 1rem;
             font-weight: 600;
             color: white;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.8rem;
             line-height: 1.3;
             flex-grow: 1;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
         }
 
         .video-duration {
@@ -551,19 +858,20 @@
         .video-actions {
             display: flex;
             flex-direction: column;
-            gap: 0.5rem;
+            gap: 0.8rem;
+            margin-top: auto;
         }
 
         .action-buttons {
             display: flex;
-            gap: 0.5rem;
+            gap: 0.6rem;
         }
 
         .action-btn {
             flex: 1;
-            padding: 0.5rem;
+            padding: 0.6rem 0.4rem;
             border: none;
-            border-radius: 6px;
+            border-radius: 8px;
             font-size: 0.8rem;
             font-weight: 600;
             cursor: pointer;
@@ -573,6 +881,7 @@
             align-items: center;
             justify-content: center;
             gap: 0.3rem;
+            min-height: 40px;
         }
 
         .btn-watch {
@@ -615,13 +924,13 @@
             display: flex;
             align-items: center;
             gap: 0.5rem;
-            padding: 0.5rem 0.8rem;
+            padding: 0.6rem 0.8rem;
             background: rgba(255, 255, 255, 0.1);
             border-radius: 15px;
             font-size: 0.8rem;
             cursor: pointer;
             transition: all 0.3s ease;
-            margin-top: 0.5rem;
+            min-height: 40px;
         }
 
         .progress-checkbox:hover {
@@ -641,6 +950,7 @@
             background: transparent;
             cursor: pointer;
             position: relative;
+            flex-shrink: 0;
         }
 
         .progress-checkbox input[type="checkbox"]:checked {
@@ -655,6 +965,163 @@
             color: #4ecdc4;
             font-weight: bold;
             font-size: 12px;
+        }
+
+        /* NUEVA SECCIÓN: FASE 4 - INFORMACIÓN ESTRATÉGICA */
+        .strategic-section {
+            padding: 3rem 2rem;
+            background: linear-gradient(135deg, #2c1810 0%, #8e44ad 100%);
+            color: white;
+        }
+
+        .strategic-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .strategic-title {
+            font-size: 3rem;
+            font-weight: 900;
+            background: linear-gradient(45deg, #ffd700, #ff6b6b, #00d4ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+        }
+
+        .strategic-subtitle {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.8);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .strategic-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .strategic-card {
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 20px;
+            padding: 2rem;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .strategic-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .card-icon {
+            width: 60px;
+            height: 60px;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(45deg, #ff6b6b, #00d4ff);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+        }
+
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: white;
+        }
+
+        .card-description {
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .card-features {
+            list-style: none;
+            padding: 0;
+        }
+
+        .card-features li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .card-features li:last-child {
+            border-bottom: none;
+        }
+
+        .feature-icon {
+            color: #4ecdc4;
+            font-weight: bold;
+        }
+
+        .strategic-cta {
+            text-align: center;
+            margin-top: 4rem;
+            padding: 3rem;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .cta-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: white;
+        }
+
+        .cta-description {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .cta-btn {
+            padding: 1rem 2rem;
+            background: linear-gradient(45deg, #ff6b6b, #ff8e53);
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(255, 107, 107, 0.4);
+        }
+
+        .cta-btn.secondary {
+            background: linear-gradient(45deg, #4ecdc4, #44a08d);
+        }
+
+        .cta-btn.secondary:hover {
+            box-shadow: 0 10px 30px rgba(78, 205, 196, 0.4);
         }
 
         /* Documentación */
@@ -686,7 +1153,6 @@
             box-shadow: 0 15px 40px rgba(255, 107, 107, 0.5);
         }
 
-        /* NUEVO: Botón Examen Final */
         .final-exam-btn {
             display: inline-flex;
             align-items: center;
@@ -729,7 +1195,6 @@
             background: linear-gradient(45deg, #9c56c7, #a569db);
         }
 
-        /* NUEVO: Botón Check List Progreso */
         .checklist-btn {
             display: inline-flex;
             align-items: center;
@@ -812,12 +1277,17 @@
             }
 
             .video-card {
-                flex: 0 0 250px;
-                height: 380px;
+                flex: 0 0 280px;
+                height: 460px;
+            }
+
+            .video-content {
+                padding: 1.2rem;
+                height: 260px;
             }
 
             .videos-row {
-                gap: 0.5rem;
+                gap: 0.8rem;
             }
 
             .module-section {
@@ -835,6 +1305,45 @@
             .controls-section {
                 padding: 1.5rem 1rem;
             }
+
+            .countdown-container {
+                flex-direction: column;
+                gap: 0.5rem;
+                padding: 0.6rem 1rem;
+            }
+
+            .countdown-timer {
+                font-size: 0.8rem;
+            }
+
+            .tabs-header {
+                padding: 0 1rem;
+                gap: 0.5rem;
+            }
+
+            .tab-button {
+                min-width: 150px;
+                padding: 0.8rem 1.5rem;
+                font-size: 0.9rem;
+            }
+
+            .strategic-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .strategic-card {
+                padding: 1.5rem;
+            }
+
+            .strategic-title {
+                font-size: 2rem;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
         }
 
         @media (max-width: 480px) {
@@ -847,17 +1356,30 @@
             }
 
             .video-card {
-                flex: 0 0 220px;
-                height: 360px;
+                flex: 0 0 260px;
+                height: 440px;
             }
 
             .video-content {
                 padding: 1rem;
-                height: 200px;
+                height: 240px;
             }
 
             .action-buttons {
                 flex-direction: column;
+                gap: 0.4rem;
+            }
+
+            .action-btn {
+                padding: 0.5rem;
+                font-size: 0.75rem;
+                min-height: 36px;
+            }
+
+            .progress-checkbox {
+                padding: 0.5rem;
+                font-size: 0.75rem;
+                min-height: 36px;
             }
 
             .documentation-btn,
@@ -866,6 +1388,51 @@
                 display: block;
                 margin: 0.5rem auto;
                 width: 90%;
+                font-size: 1rem;
+                padding: 0.8rem 1.5rem;
+            }
+
+            .countdown-container {
+                padding: 0.5rem 0.8rem;
+                margin: 0;
+            }
+
+            .countdown-info {
+                gap: 0.2rem;
+            }
+
+            .countdown-phase {
+                font-size: 0.7rem;
+            }
+
+            .countdown-deadline {
+                font-size: 0.65rem;
+            }
+
+            .countdown-timer {
+                font-size: 0.75rem;
+            }
+
+            .countdown-days {
+                font-size: 0.9rem;
+            }
+
+            .tab-button {
+                min-width: 120px;
+                padding: 0.6rem 1rem;
+                font-size: 0.8rem;
+            }
+
+            .strategic-title {
+                font-size: 1.8rem;
+            }
+
+            .card-title {
+                font-size: 1.2rem;
+            }
+
+            .cta-title {
+                font-size: 1.5rem;
             }
         }
 
@@ -915,6 +1482,17 @@
             height: 14px;
             fill: currentColor;
         }
+
+        /* Animación para contadores */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .countdown-days {
+            animation: pulse 2s infinite;
+        }
     </style>
 </head>
 <body>
@@ -940,93 +1518,133 @@
         </a>
     </div>
 
-    <!-- NUEVA SECCIÓN: Controles por Unidad -->
+    <!-- SECCIÓN REORGANIZADA: Controles por Unidad en Fases -->
     <div class="controls-section">
         <div class="controls-header">
             <h2 class="controls-title">🎯 CONTROLES POR UNIDAD</h2>
-            <p class="controls-subtitle">Evaluaciones específicas para cada módulo del curso</p>
+            <p class="controls-subtitle">Evaluaciones organizadas por fases del curso</p>
         </div>
-        <div class="controls-grid">
-            <a href="https://gessof.github.io/QUIZ_SAP/CONTROL_UNIDAD_01_SAP_HANA.html" target="_blank" class="control-btn">
-                <svg class="control-icon" viewBox="0 0 24 24">
-                    <path d="M9 11H5a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h4a2 2 0 0 0 2-2v-7a2 2 0 0 0-2-2z"/>
-                    <path d="M21 11h-4a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h4a2 2 0 0 0 2-2v-7a2 2 0 0 0-2-2z"/>
-                </svg>
-                UNIDAD 1 - Introducción SAP HANA
-            </a>
-            <a href="https://gessof.github.io/QUIZ_SAP/CONTROL_UNIDAD_02_SAP_HANA.html" target="_blank" class="control-btn">
-                <svg class="control-icon" viewBox="0 0 24 24">
-                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-                </svg>
-                UNIDAD 2 - Modelado de Datos
-            </a>
-            <a href="https://gessof.github.io/QUIZ_SAP/CONTROL_UNIDAD_03_SAP_HANA.html" target="_blank" class="control-btn">
-                <svg class="control-icon" viewBox="0 0 24 24">
-                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
-                    <path d="M9 9h6v6H9z"/>
-                </svg>
-                UNIDAD 3 - Interfaces y SQL
-            </a>
-            <a href="https://gessof.github.io/QUIZ_SAP/CONTROL_UNIDAD_04_SAP_HANA.html" target="_blank" class="control-btn">
-                <svg class="control-icon" viewBox="0 0 24 24">
-                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-                    <polyline points="14,2 14,8 20,8"/>
-                </svg>
-                UNIDAD 4 - Lenguaje DDL
-            </a>
-            <a href="https://gessof.github.io/QUIZ_SAP/CONTROL_UNIDAD_05_SAP_HANA.html" target="_blank" class="control-btn">
-                <svg class="control-icon" viewBox="0 0 24 24">
-                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-                </svg>
-                UNIDAD 5 - Proyectos y HDI
-            </a>
-            <a href="https://gessof.github.io/QUIZ_SAP/CONTROL_UNIDAD_06_SAP_HANA.html" target="_blank" class="control-btn">
-                <svg class="control-icon" viewBox="0 0 24 24">
-                    <polyline points="16 18l6-6-6-6"/>
-                    <polyline points="8 6l-6 6 6 6"/>
-                </svg>
-                UNIDAD 6 - SQLScript
-            </a>
-            <a href="https://gessof.github.io/QUIZ_SAP/CONTROL_UNIDAD_07_SAP_HANA.html" target="_blank" class="control-btn">
-                <svg class="control-icon" viewBox="0 0 24 24">
-                    <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
-                </svg>
-                UNIDAD 7 - SQLScript Avanzado
-            </a>
-            <a href="https://gessof.github.io/QUIZ_SAP/CONTROL_UNIDAD_08_SAP_HANA.html" target="_blank" class="control-btn">
-                <svg class="control-icon" viewBox="0 0 24 24">
-                    <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
-                </svg>
-                UNIDAD 8 - Aprovisionamiento de Datos
-            </a>
-            <a href="https://gessof.github.io/QUIZ_SAP/CONTROL_UNIDAD_09_SAP_HANA.html" target="_blank" class="control-btn">
-                <svg class="control-icon" viewBox="0 0 24 24">
-                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
-                    <circle cx="12" cy="16" r="1"/>
-                    <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
-                </svg>
-                UNIDAD 9 - Seguridad y Modelado
-            </a>
-            <a href="https://gessof.github.io/QUIZ_SAP/CONTROL_UNIDAD_10_SAP_HANA.html" target="_blank" class="control-btn">
-                <svg class="control-icon" viewBox="0 0 24 24">
-                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
-                    <circle cx="12" cy="12" r="3"/>
-                </svg>
-                UNIDAD 10 - Vistas Calculadas
-            </a>
-            <a href="https://gessof.github.io/QUIZ_SAP/CONTROL_UNIDAD_11_SAP_HANA.html" target="_blank" class="control-btn">
-                <svg class="control-icon" viewBox="0 0 24 24">
-                    <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
-                </svg>
-                UNIDAD 11 - Características Avanzadas
-            </a>
-            <a href="https://gessof.github.io/QUIZ_SAP/CONTROL_UNIDAD_12_SAP_HANA.html" target="_blank" class="control-btn">
-                <svg class="control-icon" viewBox="0 0 24 24">
-                    <polygon points="12 2 22 8.5 22 15.5 12 22 2 15.5 2 8.5 12 2"/>
-                    <path d="M12 22V12l10-5.5M12 12L2 6.5"/>
-                </svg>
-                UNIDAD 12 - Procesamiento Avanzado
-            </a>
+
+        <!-- FASE 1: Módulos 1-4 -->
+        <div class="phase-container phase-1">
+            <div class="phase-header">
+                <div class="phase-title">
+                    <span>🚀</span>
+                    <span>FASE 1 - FUNDAMENTOS</span>
+                    <span>🚀</span>
+                </div>
+                <div class="phase-deadline">Cierre: 20 de Agosto 2025</div>
+            </div>
+            <div class="controls-grid">
+                <a href="https://gessof.github.io/QUIZ_SAP/CONTROL_UNIDAD_01_SAP_HANA.html" target="_blank" class="control-btn">
+                    <svg class="control-icon" viewBox="0 0 24 24">
+                        <path d="M9 11H5a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h4a2 2 0 0 0 2-2v-7a2 2 0 0 0-2-2z"/>
+                        <path d="M21 11h-4a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h4a2 2 0 0 0 2-2v-7a2 2 0 0 0-2-2z"/>
+                    </svg>
+                    UNIDAD 1 - Introducción SAP HANA
+                </a>
+                <a href="https://gessof.github.io/QUIZ_SAP/CONTROL_UNIDAD_02_SAP_HANA.html" target="_blank" class="control-btn">
+                    <svg class="control-icon" viewBox="0 0 24 24">
+                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                    </svg>
+                    UNIDAD 2 - Modelado de Datos
+                </a>
+                <a href="https://gessof.github.io/QUIZ_SAP/CONTROL_UNIDAD_03_SAP_HANA.html" target="_blank" class="control-btn">
+                    <svg class="control-icon" viewBox="0 0 24 24">
+                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                        <path d="M9 9h6v6H9z"/>
+                    </svg>
+                    UNIDAD 3 - Interfaces y SQL
+                </a>
+                <a href="https://gessof.github.io/QUIZ_SAP/CONTROL_UNIDAD_04_SAP_HANA.html" target="_blank" class="control-btn">
+                    <svg class="control-icon" viewBox="0 0 24 24">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                        <polyline points="14,2 14,8 20,8"/>
+                    </svg>
+                    UNIDAD 4 - Lenguaje DDL
+                </a>
+            </div>
+        </div>
+
+        <!-- FASE 2: Módulos 5-8 -->
+        <div class="phase-container phase-2">
+            <div class="phase-header">
+                <div class="phase-title">
+                    <span>⚡</span>
+                    <span>FASE 2 - DESARROLLO</span>
+                    <span>⚡</span>
+                </div>
+                <div class="phase-deadline">Cierre: 20 de Septiembre 2025</div>
+            </div>
+            <div class="controls-grid">
+                <a href="https://gessof.github.io/QUIZ_SAP/CONTROL_UNIDAD_05_SAP_HANA.html" target="_blank" class="control-btn">
+                    <svg class="control-icon" viewBox="0 0 24 24">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                    </svg>
+                    UNIDAD 5 - Proyectos y HDI
+                </a>
+                <a href="https://gessof.github.io/QUIZ_SAP/CONTROL_UNIDAD_06_SAP_HANA.html" target="_blank" class="control-btn">
+                    <svg class="control-icon" viewBox="0 0 24 24">
+                        <polyline points="16 18l6-6-6-6"/>
+                        <polyline points="8 6l-6 6 6 6"/>
+                    </svg>
+                    UNIDAD 6 - SQLScript
+                </a>
+                <a href="https://gessof.github.io/QUIZ_SAP/CONTROL_UNIDAD_07_SAP_HANA.html" target="_blank" class="control-btn">
+                    <svg class="control-icon" viewBox="0 0 24 24">
+                        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                    </svg>
+                    UNIDAD 7 - SQLScript Avanzado
+                </a>
+                <a href="https://gessof.github.io/QUIZ_SAP/CONTROL_UNIDAD_08_SAP_HANA.html" target="_blank" class="control-btn">
+                    <svg class="control-icon" viewBox="0 0 24 24">
+                        <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+                    </svg>
+                    UNIDAD 8 - Aprovisionamiento de Datos
+                </a>
+            </div>
+        </div>
+
+        <!-- FASE 3: Módulos 9-12 -->
+        <div class="phase-container phase-3">
+            <div class="phase-header">
+                <div class="phase-title">
+                    <span>🎯</span>
+                    <span>FASE 3 - AVANZADO</span>
+                    <span>🎯</span>
+                </div>
+                <div class="phase-deadline">Cierre: 20 de Octubre 2025</div>
+            </div>
+            <div class="controls-grid">
+                <a href="https://gessof.github.io/QUIZ_SAP/CONTROL_UNIDAD_09_SAP_HANA.html" target="_blank" class="control-btn">
+                    <svg class="control-icon" viewBox="0 0 24 24">
+                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                        <circle cx="12" cy="16" r="1"/>
+                        <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                    </svg>
+                    UNIDAD 9 - Seguridad y Modelado
+                </a>
+                <a href="https://gessof.github.io/QUIZ_SAP/CONTROL_UNIDAD_10_SAP_HANA.html" target="_blank" class="control-btn">
+                    <svg class="control-icon" viewBox="0 0 24 24">
+                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                        <circle cx="12" cy="12" r="3"/>
+                    </svg>
+                    UNIDAD 10 - Vistas Calculadas
+                </a>
+                <a href="https://gessof.github.io/QUIZ_SAP/CONTROL_UNIDAD_11_SAP_HANA.html" target="_blank" class="control-btn">
+                    <svg class="control-icon" viewBox="0 0 24 24">
+                        <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+                    </svg>
+                    UNIDAD 11 - Características Avanzadas
+                </a>
+                <a href="https://gessof.github.io/QUIZ_SAP/CONTROL_UNIDAD_12_SAP_HANA.html" target="_blank" class="control-btn">
+                    <svg class="control-icon" viewBox="0 0 24 24">
+                        <polygon points="12 2 22 8.5 22 15.5 12 22 2 15.5 2 8.5 12 2"/>
+                        <path d="M12 22V12l10-5.5M12 12L2 6.5"/>
+                    </svg>
+                    UNIDAD 12 - Procesamiento Avanzado
+                </a>
+            </div>
         </div>
     </div>
 
@@ -1064,11 +1682,183 @@
         </div>
     </div>
 
-    <!-- Contenedor principal -->
-    <div class="main-container" id="mainContainer">
-        <div class="loading">
-            <div class="spinner"></div>
-            Cargando módulos y clases...
+    <!-- NUEVO SISTEMA DE PESTAÑAS/SLIDES -->
+    <div class="tabs-container">
+        <!-- Navegación de pestañas -->
+        <div class="tabs-header">
+            <button class="tab-button phase-1 active" data-tab="fase1">
+                <svg class="tab-icon" viewBox="0 0 24 24">
+                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                </svg>
+                🚀 FASE 1 - FUNDAMENTOS
+            </button>
+            <button class="tab-button phase-2" data-tab="fase2">
+                <svg class="tab-icon" viewBox="0 0 24 24">
+                    <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+                </svg>
+                ⚡ FASE 2 - DESARROLLO
+            </button>
+            <button class="tab-button phase-3" data-tab="fase3">
+                <svg class="tab-icon" viewBox="0 0 24 24">
+                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                </svg>
+                🎯 FASE 3 - AVANZADO
+            </button>
+            <button class="tab-button phase-4" data-tab="fase4">
+                <svg class="tab-icon" viewBox="0 0 24 24">
+                    <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+                </svg>
+                💼 OPORTUNIDADES PROFESIONALES
+            </button>
+        </div>
+
+        <!-- Contenido deslizable -->
+        <div class="tabs-content">
+            <!-- FASE 1 -->
+            <div id="fase1" class="tab-panel active">
+                <div class="main-videos-container" id="fase1Container">
+                    <div class="loading">
+                        <div class="spinner"></div>
+                        Cargando Fase 1 - Fundamentos...
+                    </div>
+                </div>
+            </div>
+
+            <!-- FASE 2 -->
+            <div id="fase2" class="tab-panel">
+                <div class="main-videos-container" id="fase2Container">
+                    <div class="loading">
+                        <div class="spinner"></div>
+                        Cargando Fase 2 - Desarrollo...
+                    </div>
+                </div>
+            </div>
+
+            <!-- FASE 3 -->
+            <div id="fase3" class="tab-panel">
+                <div class="main-videos-container" id="fase3Container">
+                    <div class="loading">
+                        <div class="spinner"></div>
+                        Cargando Fase 3 - Avanzado...
+                    </div>
+                </div>
+            </div>
+
+            <!-- FASE 4 - INFORMACIÓN ESTRATÉGICA -->
+            <div id="fase4" class="tab-panel">
+                <div class="strategic-section">
+                    <div class="strategic-header">
+                        <h2 class="strategic-title">💼 OPORTUNIDADES PROFESIONALES</h2>
+                        <p class="strategic-subtitle">Descubre el potencial de SAP HANA en el mercado empresarial y como aplicar tu conocimiento en proyectos reales</p>
+                    </div>
+
+                    <div class="strategic-grid">
+                        <!-- Empresas que usan SAP -->
+                        <div class="strategic-card">
+                            <div class="card-icon">🏢</div>
+                            <h3 class="card-title">Empresas Líderes con SAP</h3>
+                            <p class="card-description">Descubre las principales organizaciones que utilizan SAP HANA a nivel global y las oportunidades laborales disponibles.</p>
+                            <ul class="card-features">
+                                <li><span class="feature-icon">✓</span> Fortune 500 Companies</li>
+                                <li><span class="feature-icon">✓</span> Bancos y Fintech</li>
+                                <li><span class="feature-icon">✓</span> Retail y E-commerce</li>
+                                <li><span class="feature-icon">✓</span> Manufactura y Logística</li>
+                                <li><span class="feature-icon">✓</span> Sector Público</li>
+                            </ul>
+                        </div>
+
+                        <!-- Sectores Financieros -->
+                        <div class="strategic-card">
+                            <div class="card-icon">💰</div>
+                            <h3 class="card-title">Soluciones Financieras</h3>
+                            <p class="card-description">Implementaciones de SAP HANA en banca, seguros y servicios financieros para análisis en tiempo real.</p>
+                            <ul class="card-features">
+                                <li><span class="feature-icon">✓</span> Análisis de Riesgo en Tiempo Real</li>
+                                <li><span class="feature-icon">✓</span> Detección de Fraudes</li>
+                                <li><span class="feature-icon">✓</span> Reporting Regulatorio</li>
+                                <li><span class="feature-icon">✓</span> Customer Analytics</li>
+                                <li><span class="feature-icon">✓</span> Algoritmos Predictivos</li>
+                            </ul>
+                        </div>
+
+                        <!-- Retail y E-commerce -->
+                        <div class="strategic-card">
+                            <div class="card-icon">🛒</div>
+                            <h3 class="card-title">Retail Intelligence</h3>
+                            <p class="card-description">Transformación digital del retail con SAP HANA para optimización de inventarios y experiencia del cliente.</p>
+                            <ul class="card-features">
+                                <li><span class="feature-icon">✓</span> Gestión de Inventario Inteligente</li>
+                                <li><span class="feature-icon">✓</span> Personalización de Ofertas</li>
+                                <li><span class="feature-icon">✓</span> Análisis de Comportamiento</li>
+                                <li><span class="feature-icon">✓</span> Optimización de Precios</li>
+                                <li><span class="feature-icon">✓</span> Supply Chain Analytics</li>
+                            </ul>
+                        </div>
+
+                        <!-- Dashboard y BI -->
+                        <div class="strategic-card">
+                            <div class="card-icon">📊</div>
+                            <h3 class="card-title">Business Intelligence</h3>
+                            <p class="card-description">Creación de dashboards ejecutivos y soluciones de BI avanzadas con SAP HANA y herramientas complementarias.</p>
+                            <ul class="card-features">
+                                <li><span class="feature-icon">✓</span> SAP Analytics Cloud</li>
+                                <li><span class="feature-icon">✓</span> SAP BusinessObjects</li>
+                                <li><span class="feature-icon">✓</span> Power BI + SAP Connector</li>
+                                <li><span class="feature-icon">✓</span> Tableau Integration</li>
+                                <li><span class="feature-icon">✓</span> Custom Dashboards</li>
+                            </ul>
+                        </div>
+
+                        <!-- Plan de Negocio -->
+                        <div class="strategic-card">
+                            <div class="card-icon">📈</div>
+                            <h3 class="card-title">Plan de Negocio Post-Curso</h3>
+                            <p class="card-description">Estrategias para monetizar tus conocimientos de SAP HANA y construir una carrera exitosa.</p>
+                            <ul class="card-features">
+                                <li><span class="feature-icon">✓</span> Consultoría Independiente</li>
+                                <li><span class="feature-icon">✓</span> Certificaciones SAP Oficiales</li>
+                                <li><span class="feature-icon">✓</span> Freelancing Especializado</li>
+                                <li><span class="feature-icon">✓</span> Startup Tech</li>
+                                <li><span class="feature-icon">✓</span> Posiciones Senior</li>
+                            </ul>
+                        </div>
+
+                        <!-- Desarrollo Técnico -->
+                        <div class="strategic-card">
+                            <div class="card-icon">⚡</div>
+                            <h3 class="card-title">Roadmap de Desarrollo</h3>
+                            <p class="card-description">Ruta de crecimiento técnico y profesional para convertirte en un experto reconocido en SAP HANA.</p>
+                            <ul class="card-features">
+                                <li><span class="feature-icon">✓</span> Portfolio de Proyectos</li>
+                                <li><span class="feature-icon">✓</span> GitHub Especializado</li>
+                                <li><span class="feature-icon">✓</span> Networking SAP Community</li>
+                                <li><span class="feature-icon">✓</span> Blog Técnico Personal</li>
+                                <li><span class="feature-icon">✓</span> Mentoring y Teaching</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Call to Action -->
+                    <div class="strategic-cta">
+                        <h3 class="cta-title">🚀 ¡Impulsa tu Carrera Profesional!</h3>
+                        <p class="cta-description">
+                            Con los conocimientos adquiridos en este curso, estarás preparado para enfrentar los desafíos del mercado actual. 
+                            SAP HANA es una tecnología en alta demanda con excelentes oportunidades de crecimiento profesional.
+                        </p>
+                        <div class="cta-buttons">
+                            <a href="https://www.sap.com/training-certification/certification.html" target="_blank" class="cta-btn">
+                                🏆 Certificación Oficial SAP
+                            </a>
+                            <a href="https://community.sap.com/" target="_blank" class="cta-btn secondary">
+                                🤝 Únete a SAP Community
+                            </a>
+                            <a href="https://www.gessof.cl/contacto" target="_blank" class="cta-btn">
+                                💼 Consultoría Especializada
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -1129,6 +1919,76 @@
                 }
             }
         };
+
+        // Configuración de fechas de cierre por fase
+        const phaseDeadlines = {
+            1: new Date('2025-08-20T23:59:59'),
+            2: new Date('2025-09-20T23:59:59'),
+            3: new Date('2025-10-20T23:59:59')
+        };
+
+        // Función para calcular días restantes
+        function calculateDaysRemaining(deadline) {
+            const now = new Date();
+            const timeDiff = deadline.getTime() - now.getTime();
+            const daysDiff = Math.ceil(timeDiff / (1000 * 3600 * 24));
+            return daysDiff;
+        }
+
+        // Función para obtener la fase de un módulo
+        function getPhaseForModule(moduleNumber) {
+            if (moduleNumber >= 1 && moduleNumber <= 4) return 1;
+            if (moduleNumber >= 5 && moduleNumber <= 8) return 2;
+            if (moduleNumber >= 9 && moduleNumber <= 12) return 3;
+            return 1;
+        }
+
+        // Función para crear contador de tiempo descendente
+        function createCountdownHTML(moduleNumber) {
+            const phase = getPhaseForModule(moduleNumber);
+            const deadline = phaseDeadlines[phase];
+            const daysRemaining = calculateDaysRemaining(deadline);
+            
+            const phaseNames = {
+                1: 'FASE 1 - FUNDAMENTOS',
+                2: 'FASE 2 - DESARROLLO', 
+                3: 'FASE 3 - AVANZADO'
+            };
+
+            const phaseClass = `phase-${phase}-countdown`;
+            const deadlineText = deadline.toLocaleDateString('es-ES', {
+                day: 'numeric',
+                month: 'long',
+                year: 'numeric'
+            });
+
+            let statusText = '';
+            let statusIcon = '';
+            
+            if (daysRemaining > 0) {
+                statusText = `Quedan ${daysRemaining} días`;
+                statusIcon = '⏰';
+            } else if (daysRemaining === 0) {
+                statusText = '¡Último día!';
+                statusIcon = '🔥';
+            } else {
+                statusText = 'Fase cerrada';
+                statusIcon = '🔒';
+            }
+
+            return `
+                <div class="countdown-container ${phaseClass}">
+                    <div class="countdown-info">
+                        <div class="countdown-phase">${phaseNames[phase]}</div>
+                        <div class="countdown-deadline">Cierre: ${deadlineText}</div>
+                    </div>
+                    <div class="countdown-timer">
+                        <span>${statusIcon}</span>
+                        <span class="countdown-days">${statusText}</span>
+                    </div>
+                </div>
+            `;
+        }
 
         // Datos completos de clases organizadas por módulos
         const moduleData = {
@@ -1359,7 +2219,7 @@
             }
         };
 
-        // URLs de YouTube - primeros 42 videos disponibles
+        // URLs de YouTube - videos disponibles
         const youtubeLinks = {
 		    "001": "https://youtu.be/lkMaB9U2ET8?si=bFoTrManNvjASFxu",
 			"002": "https://youtu.be/aValKzd4r5k?si=iSEc6wXmudRhGuwv",
@@ -1368,8 +2228,6 @@
             "005": "https://youtu.be/SpWZw0PWL5g?si=x4f4uaeZGFIHJFSP",
             "006": "https://youtu.be/k-VnnhQDz90?si=GvxRuduZIDa1bmN0",
             "007": "https://youtu.be/LXfUvisexGI?si=f2peDC0OsIMOZoNs",
-			
-            		
 			"008": "https://youtu.be/S6q-tJNGfv8?si=8Q5v6YU4CciWz4ii",
 			"009": "https://youtu.be/8u7QajxGqAw?si=k4DN203CYlgNmHaD",
             "010": "https://youtu.be/914T_Nc2h-M?si=jzQcTMXq1GIwCZx9",
@@ -1380,8 +2238,6 @@
 			"015": "https://youtu.be/Hd3EGz9OYzY",
 			"016": "https://youtu.be/OYkPg0iWuLI",
             "017": "https://youtu.be/PMfeSPMnudM?si=xyOu0WsKZE4N2G-k",
-			
-		//	"018": "https://gessof.github.io/TRANS_SAP/018_video.html",
             "019": "https://youtu.be/GOjQnl7i5SA?si=H6GMdBbzoQlhQ_Ix",
             "020": "https://youtu.be/8YkqaaAYCWA?si=uCMlref51-H1mbqm",
             "021": "https://youtu.be/7Ba6CMS3glc?si=NIHwgdJKA-UYksOA",
@@ -1408,7 +2264,6 @@
             "042": "https://youtu.be/NZE1lv0RWA8?si=9eLJosxcIiOyeTg1",
             "043": "https://youtu.be/n0npDOspOIM?si=_w2_gxZk2wRhIXLa",
             "044": "https://youtu.be/ho_AFM0kgQM?si=S4BanMz_exbUDjpH",
-			
             "045": "https://youtu.be/Z3YxuuIeUO0?si=PfHSDTHSGTEwH8VF",
             "046": "https://youtu.be/Nb-7NeOqMiM?si=6zcktxzpfZ21fSMD",
             "047": "https://youtu.be/7Ypaqjkr_2I?si=RlgT_o0I_68h_J-C",
@@ -1418,19 +2273,11 @@
 			"051": "https://youtu.be/O1ykLahmsFE",
 			"052": "https://youtu.be/g_35hOwcnzo",
 			"053": "https://youtu.be/SrTPOq0Kwn0",
-		//	"054": "Proximamente",
 			"055": "https://youtu.be/RJSpXWTKDU0",
 			"056": "https://youtu.be/n92Ml9iBRWo",
 			"057": "https://youtu.be/YKkxorKHp10",
 			"058": "https://youtu.be/7-O-K336MK0",
-			"059": "https://youtu.be/3KAP_s-NRd0",
-		//	"060": "Proximamente",
-		//	"061": "Proximamente",
-		//	"062": "Proximamente"
-			
-		
-		//	"55": "Proximamente"
-			
+			"059": "https://youtu.be/3KAP_s-NRd0"
         };
 
         // Funciones para extraer ID de YouTube
@@ -1572,13 +2419,19 @@
             `;
         }
 
-        // Crear sección de módulo
+        // Crear sección de módulo con contador
         function createModuleSection(moduleKey, moduleInfo) {
+            const moduleNumber = parseInt(moduleKey.replace('modulo', ''));
+            const countdownHTML = createCountdownHTML(moduleNumber);
+            
             return `
                 <div class="module-section" data-module="${moduleKey}">
                     <div class="module-header">
-                        <h2 class="module-title">${moduleInfo.title}</h2>
-                        <div class="module-count">${moduleInfo.classes.length} clases</div>
+                        <div class="module-title-row">
+                            <h2 class="module-title">${moduleInfo.title}</h2>
+                            <div class="module-count">${moduleInfo.classes.length} clases</div>
+                        </div>
+                        ${countdownHTML}
                     </div>
                     <div class="videos-scroll">
                         <button class="nav-btn prev" onclick="scrollModule('${moduleKey}', 'prev')">‹</button>
@@ -1603,18 +2456,92 @@
             }
         }
 
-        // Renderizar todos los módulos
-        function renderAllModules() {
-            const container = document.getElementById('mainContainer');
+        // NUEVAS FUNCIONES PARA EL SISTEMA DE PESTAÑAS
+
+        // Renderizar módulos por fase
+        function renderPhaseModules(phase) {
+            const phaseModules = {};
+            const moduleKeys = Object.keys(moduleData);
             
-            const modulesHTML = Object.keys(moduleData).map(moduleKey => 
-                createModuleSection(moduleKey, moduleData[moduleKey])
+            // Filtrar módulos por fase
+            moduleKeys.forEach(moduleKey => {
+                const moduleNumber = parseInt(moduleKey.replace('modulo', ''));
+                const modulePhase = getPhaseForModule(moduleNumber);
+                
+                if (modulePhase === phase) {
+                    phaseModules[moduleKey] = moduleData[moduleKey];
+                }
+            });
+            
+            // Generar HTML
+            return Object.keys(phaseModules).map(moduleKey => 
+                createModuleSection(moduleKey, phaseModules[moduleKey])
             ).join('');
-            
-            container.innerHTML = modulesHTML;
         }
 
-        // Función de búsqueda
+        // Cambiar pestaña activa
+        function switchTab(tabId) {
+            // Actualizar botones de pestaña
+            document.querySelectorAll('.tab-button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.querySelector(`[data-tab="${tabId}"]`).classList.add('active');
+            
+            // Actualizar paneles de contenido
+            document.querySelectorAll('.tab-panel').forEach(panel => {
+                panel.classList.remove('active');
+            });
+            document.getElementById(tabId).classList.add('active');
+            
+            // Cargar contenido si es necesario
+            loadTabContent(tabId);
+        }
+
+        // Cargar contenido de pestaña
+        function loadTabContent(tabId) {
+            const container = document.getElementById(`${tabId}Container`);
+            
+            if (!container || container.dataset.loaded === 'true') {
+                return;
+            }
+            
+            let content = '';
+            
+            switch(tabId) {
+                case 'fase1':
+                    content = renderPhaseModules(1);
+                    break;
+                case 'fase2':
+                    content = renderPhaseModules(2);
+                    break;
+                case 'fase3':
+                    content = renderPhaseModules(3);
+                    break;
+                case 'fase4':
+                    // La fase 4 ya está renderizada en HTML
+                    return;
+            }
+            
+            if (container && content) {
+                container.innerHTML = content;
+                container.dataset.loaded = 'true';
+            }
+        }
+
+        // Configurar navegación de pestañas
+        function setupTabs() {
+            document.querySelectorAll('.tab-button').forEach(button => {
+                button.addEventListener('click', () => {
+                    const tabId = button.dataset.tab;
+                    switchTab(tabId);
+                });
+            });
+            
+            // Cargar contenido inicial
+            loadTabContent('fase1');
+        }
+
+        // Función de búsqueda actualizada
         function setupSearch() {
             const searchInput = document.getElementById('searchInput');
             let searchTimeout;
@@ -1625,7 +2552,13 @@
                     const searchTerm = e.target.value.toLowerCase().trim();
                     
                     if (searchTerm === '') {
-                        renderAllModules();
+                        // Recargar contenido actual de la pestaña activa
+                        const activeTab = document.querySelector('.tab-button.active').dataset.tab;
+                        const container = document.getElementById(`${activeTab}Container`);
+                        if (container) {
+                            container.dataset.loaded = 'false';
+                            loadTabContent(activeTab);
+                        }
                         return;
                     }
                     
@@ -1634,14 +2567,17 @@
             });
         }
 
-        // Filtrar contenido
+        // Filtrar contenido actualizado
         function filterContent(searchTerm) {
-            const container = document.getElementById('mainContainer');
-            let hasResults = false;
+            const activeTab = document.querySelector('.tab-button.active').dataset.tab;
+            const container = document.getElementById(`${activeTab}Container`);
             
-            // Buscar en todas las clases
+            if (!container) return;
+            
+            let hasResults = false;
             const filteredModules = {};
             
+            // Buscar en todas las clases
             Object.keys(moduleData).forEach(moduleKey => {
                 const moduleInfo = moduleData[moduleKey];
                 const filteredClasses = moduleInfo.classes.filter(classData => 
@@ -1694,6 +2630,36 @@
             } catch (error) {
                 console.error('Error actualizando estadísticas:', error);
             }
+        }
+
+        // Función para actualizar todos los contadores
+        function updateAllCountdowns() {
+            const countdownElements = document.querySelectorAll('.countdown-timer');
+            countdownElements.forEach(element => {
+                const container = element.closest('.countdown-container');
+                const moduleSection = container.closest('.module-section');
+                if (!moduleSection) return;
+                
+                const moduleKey = moduleSection.getAttribute('data-module');
+                const moduleNumber = parseInt(moduleKey.replace('modulo', ''));
+                
+                const phase = getPhaseForModule(moduleNumber);
+                const deadline = phaseDeadlines[phase];
+                const daysRemaining = calculateDaysRemaining(deadline);
+                
+                const daysElement = element.querySelector('.countdown-days');
+                
+                if (daysRemaining > 0) {
+                    daysElement.textContent = `Quedan ${daysRemaining} días`;
+                    element.querySelector('span:first-child').textContent = '⏰';
+                } else if (daysRemaining === 0) {
+                    daysElement.textContent = '¡Último día!';
+                    element.querySelector('span:first-child').textContent = '🔥';
+                } else {
+                    daysElement.textContent = 'Fase cerrada';
+                    element.querySelector('span:first-child').textContent = '🔒';
+                }
+            });
         }
 
         // Mostrar notificaciones
@@ -1762,32 +2728,49 @@
 
         // Inicializar aplicación
         document.addEventListener('DOMContentLoaded', () => {
-            renderAllModules();
+            setupTabs();
             setupSearch();
             updateProgressStats();
             
+            // Actualizar contadores cada hora
+            setInterval(updateAllCountdowns, 3600000); // 1 hora
+            
+            // Actualizar contadores al cargar
+            setTimeout(updateAllCountdowns, 1000);
+            
             // Mostrar mensaje de bienvenida
             setTimeout(() => {
-                showNotification('🎓 Portal SAP HANA cargado - ¡Listo para aprender!', 'success');
-            }, 1000);
+                showNotification('🎓 Portal SAP HANA con Sistema de Fases cargado - ¡Listo para aprender!', 'success');
+            }, 1500);
             
             // Exponer funciones para desarrollo
             window.GESSOF_PORTAL = {
                 moduleData,
                 youtubeLinks,
                 driveConfig,
-                renderAllModules,
+                phaseDeadlines,
+                switchTab,
+                loadTabContent,
                 updateProgressStats,
+                updateAllCountdowns,
+                calculateDaysRemaining,
                 resetProgress: () => {
                     localStorage.removeItem('sap_hana_progress');
-                    renderAllModules();
+                    // Recargar contenido de pestañas
+                    document.querySelectorAll('[id$="Container"]').forEach(container => {
+                        container.dataset.loaded = 'false';
+                    });
+                    const activeTab = document.querySelector('.tab-button.active').dataset.tab;
+                    loadTabContent(activeTab);
                     updateProgressStats();
                     showNotification('🔄 Progreso reiniciado', 'info');
                 }
             };
             
-            console.log('🚀 Portal SAP HANA cargado correctamente');
+            console.log('🚀 Portal SAP HANA con Sistema de Fases cargado correctamente');
             console.log('📚 Funciones disponibles: window.GESSOF_PORTAL');
+            console.log('⏰ Contadores de tiempo descendente activados');
+            console.log('🎭 Sistema de pestañas/slides implementado');
         });
     </script>
 </body>
